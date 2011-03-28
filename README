@@ -1,1 +1,16 @@
-TODO: full this file
+Структура проекта следующая:
+├── README
+└── src
+    └── ru
+        └── nsu
+            └── ci
+                ├── common (пакет для общих вещей, сюда необходимо поместить интерфейс Кубика Рубика)
+                │   └── RubiksCubeInterface.java
+                ├── graphics (пакет для графических компонентов)
+                │   ├── ControlPanel.java
+                │   ├── DrawPanel.java
+                │   └── MainFrame.java
+                ├── translator (здесь находятся лексический и синтаксический анализаторы)
+                │   └── rubiks-cube.jjt
+                └── Main.java (точка входа в программу)
+
