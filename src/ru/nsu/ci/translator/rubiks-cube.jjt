@@ -1,3 +1,74 @@
-/*
-Здесь помещаем свою грамматику!
-*/
+options{
+  STATIC=false;
+}
+PARSER_BEGIN(SI)
+package ru.nsu.ci.translator;
+import java.io.PrintStream;
+  public class SI
+   {
+ public static void main(String[] args)
+            throws ParseException, TokenMgrError, NumberFormatException
+            {
+              SI si=new SI(System.in);
+              si.start(System.out);
+            } 
+          }
+ PARSER_END(SI)
+
+ SKIP: {" "}
+ TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
+ TOKEN:{  <NUMBER : (["0"-"9"])+ >}
+ TOKEN:{  <TURN: "TURN" >}
+ TOKEN:{  <LETTER: "a" | "b" | "c">}
+ TOKEN:{  <MOV: "MOV" >}
+ TOKEN:{  <FOR: "FOR" >}
+ TOKEN:{  <END: "END" >}
+ TOKEN:{  <RESTART: "RESTART">}
+ TOKEN:{  <CANCEL: "CANCEL" >}
+
+ /*TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
+ TOKEN:{  <NUMBER : (["0"-"9"])+ >}
+ TOKEN:{  <TURN: "повернуть" ( < NUMBER> | < LETTER > )  < NUMBER> >}
+ TOKEN:{  <LETTER: "а" | "б" | "в">}
+ TOKEN:{  <MOV: "перейти" < NUMBER > >}
+ TOKEN:{  <FOR: "повторить" < NUMBER > >}
+ TOKEN:{  <END: "конец" >}
+ TOKEN:{  <RESTART: "заново">}
+ TOKEN:{  <CANCEL: "отменить" < NUMBER > >}*/
+ 
+
+ 
+ void start(PrintStream printStream) throws NumberFormatException:
+ {
+	Token t;
+ }
+ {
+   (
+     (
+       
+     t=<NUMBER>
+     {       
+       int previousValue= Integer.parseInt(t.image);
+       printStream.println(previousValue);
+     }
+ | 
+     <TURN>
+     (
+       < NUMBER > | < LETTER > <NUMBER> 
+     )
+ | 
+     (
+       <MOV> | < FOR > | < CANCEL >
+     )
+     (       
+       < NUMBER >
+     )
+ | 
+     <END>
+ | 
+     <RESTART>
+)
+<EOL>
+   )*
+  <EOF>
+ }
