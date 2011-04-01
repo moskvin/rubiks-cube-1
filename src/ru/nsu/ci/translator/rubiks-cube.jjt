@@ -6,12 +6,12 @@ package ru.nsu.ci.translator;
 import java.io.PrintStream;
   public class SI
    {
- public static void main(String[] args)
+   /*   public static void main(String[] args)
             throws ParseException, TokenMgrError, NumberFormatException
             {
               SI si=new SI(System.in);
               si.start(System.out);
-            } 
+            } */
           }
  PARSER_END(SI)
 
