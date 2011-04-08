@@ -52,7 +52,7 @@ public class JOGLQuad implements GLEventListener, KeyListener {
             gl.glVertex3f( 1.0f,-1.0f, 0.0f);      // Bottom Right
             gl.glVertex3f(-1.0f,-1.0f, 0.0f);     // Bottom Left
         // Done Drawing The Quad
-        gl.glEnd();                                                     
+        gl.glEnd();             
  
         // increasing rotation for the next iteration                                 
         rotateT += 0.2f; 

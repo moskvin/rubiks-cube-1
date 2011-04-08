@@ -1,11 +1,18 @@
 options{
   STATIC=false;
+  VISITOR=true;
+  MULTI=true;
+  NODE_DEFAULT_VOID=true;
 }
 PARSER_BEGIN(SI)
 package ru.nsu.ci.translator;
 import java.io.PrintStream;
   public class SI
    {
+     public Node rootNode()
+     {
+       return jjtree.rootNode();
+     }
    /*   public static void main(String[] args)
             throws ParseException, TokenMgrError, NumberFormatException
             {
@@ -45,30 +52,69 @@ import java.io.PrintStream;
  {
    (
      (
-       
-     t=<NUMBER>
-     {       
-       int previousValue= Integer.parseInt(t.image);
-       printStream.println(previousValue);
-     }
- | 
-     <TURN>
-     (
-       < NUMBER > | < LETTER > <NUMBER> 
-     )
- | 
-     (
-       <MOV> | < FOR > | < CANCEL >
-     )
-     (       
-       < NUMBER >
-     )
- | 
-     <END>
- | 
-     <RESTART>
+       turn()
+     | 
+       mov()
+     | 
+       fore()
+     | 
+       cancel()
+     | 
+       restart()
 )
 <EOL>
    )*
   <EOF>
+ }
+
+ void turn() throws NumberFormatException #turn:
+ {
+	Token t;
+ }
+ {
+    <TURN> 
+     (
+       < NUMBER > | < LETTER > <NUMBER> 
+     ) }
+
+ void mov() throws NumberFormatException #mov:
+ {
+	Token t;
+ }
+ {
+    <MOV>
+     (       
+       < NUMBER >
+     ) }
+
+ void fore() throws NumberFormatException #fore:
+ {
+	Token t;
+ }
+ {
+    <FOR>
+     (       
+       < NUMBER >
+     )
+    <END>
+ }
+
+
+  void cancel() throws NumberFormatException #cancel:
+ {
+	Token t;
+ }
+ {
+    <CANCEL>
+     (       
+       < NUMBER >
+     )
+ }
+
+ void restart() throws NumberFormatException #restart:
+ {
+	Token t;
+ }
+ {
+    <RESTART>
  }

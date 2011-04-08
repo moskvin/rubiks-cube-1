@@ -2,7 +2,10 @@
 package ru.nsu.ci.translator;
 import java.io.PrintStream;
   public class SI/*@bgen(jjtree)*/implements SITreeConstants, SIConstants {/*@bgen(jjtree)*/
-  protected JJTSIState jjtree = new JJTSIState();
+  protected JJTSIState jjtree = new JJTSIState();public Node rootNode()
+     {
+       return jjtree.rootNode();
+     }
 
  /*TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
  TOKEN:{  <NUMBER : (["0"-"9"])+ >}
@@ -14,87 +17,131 @@ import java.io.PrintStream;
  TOKEN:{  <RESTART: "заново">}
  TOKEN:{  <CANCEL: "отменить" < NUMBER > >}*/
   final public void start(PrintStream printStream) throws ParseException, NumberFormatException {
-  /*@bgen(jjtree) start */
-        SimpleNode jjtn000 = new SimpleNode(JJTSTART);
+        Token t;
+    label_1:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case TURN:
+      case MOV:
+      case FOR:
+      case RESTART:
+      case CANCEL:
+        ;
+        break;
+      default:
+        jj_la1[0] = jj_gen;
+        break label_1;
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case TURN:
+        turn();
+        break;
+      case MOV:
+        mov();
+        break;
+      case FOR:
+        fore();
+        break;
+      case CANCEL:
+        cancel();
+        break;
+      case RESTART:
+        restart();
+        break;
+      default:
+        jj_la1[1] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+      jj_consume_token(EOL);
+    }
+    jj_consume_token(0);
+  }
+
+  final public void turn() throws ParseException, NumberFormatException {
+  /*@bgen(jjtree) turn */
+        ASTturn jjtn000 = new ASTturn(JJTTURN);
         boolean jjtc000 = true;
         jjtree.openNodeScope(jjtn000);Token t;
     try {
-      label_1:
-      while (true) {
-        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case NUMBER:
-        case TURN:
-        case MOV:
-        case FOR:
-        case END:
-        case RESTART:
-        case CANCEL:
-          ;
-          break;
-        default:
-          jj_la1[0] = jj_gen;
-          break label_1;
-        }
-        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-        case NUMBER:
-          t = jj_consume_token(NUMBER);
-       int previousValue= Integer.parseInt(t.image);
-       printStream.println(previousValue);
-          break;
-        case TURN:
-          jj_consume_token(TURN);
-          switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-          case NUMBER:
-            jj_consume_token(NUMBER);
-            break;
-          case LETTER:
-            jj_consume_token(LETTER);
-            jj_consume_token(NUMBER);
-            break;
-          default:
-            jj_la1[1] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
-          }
-          break;
-        case MOV:
-        case FOR:
-        case CANCEL:
-          switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-          case MOV:
-            jj_consume_token(MOV);
-            break;
-          case FOR:
-            jj_consume_token(FOR);
-            break;
-          case CANCEL:
-            jj_consume_token(CANCEL);
-            break;
-          default:
-            jj_la1[2] = jj_gen;
-            jj_consume_token(-1);
-            throw new ParseException();
-          }
-          jj_consume_token(NUMBER);
-          break;
-        case END:
-          jj_consume_token(END);
-          break;
-        case RESTART:
-          jj_consume_token(RESTART);
-          break;
-        default:
-          jj_la1[3] = jj_gen;
-          jj_consume_token(-1);
-          throw new ParseException();
-        }
-        jj_consume_token(EOL);
+      jj_consume_token(TURN);
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case NUMBER:
+        jj_consume_token(NUMBER);
+        break;
+      case LETTER:
+        jj_consume_token(LETTER);
+        jj_consume_token(NUMBER);
+        break;
+      default:
+        jj_la1[2] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
       }
-      jj_consume_token(0);
     } finally {
-     if (jjtc000) {
-       jjtree.closeNodeScope(jjtn000, true);
-     }
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+    }
+  }
+
+  final public void mov() throws ParseException, NumberFormatException {
+  /*@bgen(jjtree) mov */
+        ASTmov jjtn000 = new ASTmov(JJTMOV);
+        boolean jjtc000 = true;
+        jjtree.openNodeScope(jjtn000);Token t;
+    try {
+      jj_consume_token(MOV);
+      jj_consume_token(NUMBER);
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+    }
+  }
+
+  final public void fore() throws ParseException, NumberFormatException {
+  /*@bgen(jjtree) fore */
+        ASTfore jjtn000 = new ASTfore(JJTFORE);
+        boolean jjtc000 = true;
+        jjtree.openNodeScope(jjtn000);Token t;
+    try {
+      jj_consume_token(FOR);
+      jj_consume_token(NUMBER);
+      jj_consume_token(END);
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+    }
+  }
+
+  final public void cancel() throws ParseException, NumberFormatException {
+  /*@bgen(jjtree) cancel */
+        ASTcancel jjtn000 = new ASTcancel(JJTCANCEL);
+        boolean jjtc000 = true;
+        jjtree.openNodeScope(jjtn000);Token t;
+    try {
+      jj_consume_token(CANCEL);
+      jj_consume_token(NUMBER);
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
+    }
+  }
+
+  final public void restart() throws ParseException, NumberFormatException {
+  /*@bgen(jjtree) restart */
+        ASTrestart jjtn000 = new ASTrestart(JJTRESTART);
+        boolean jjtc000 = true;
+        jjtree.openNodeScope(jjtn000);Token t;
+    try {
+      jj_consume_token(RESTART);
+    } finally {
+      if (jjtc000) {
+        jjtree.closeNodeScope(jjtn000, true);
+      }
     }
   }
 
@@ -107,13 +154,13 @@ import java.io.PrintStream;
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[4];
+  final private int[] jj_la1 = new int[3];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x7d8,0x28,0x4c0,0x7d8,};
+      jj_la1_0 = new int[] {0x6d0,0x6d0,0x28,};
    }
 
   /** Constructor with InputStream. */
@@ -127,7 +174,7 @@ import java.io.PrintStream;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -142,7 +189,7 @@ import java.io.PrintStream;
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -152,7 +199,7 @@ import java.io.PrintStream;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -163,7 +210,7 @@ import java.io.PrintStream;
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -172,7 +219,7 @@ import java.io.PrintStream;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -182,7 +229,7 @@ import java.io.PrintStream;
     jj_ntk = -1;
     jjtree.reset();
     jj_gen = 0;
-    for (int i = 0; i < 4; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 3; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -238,7 +285,7 @@ import java.io.PrintStream;
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 3; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {

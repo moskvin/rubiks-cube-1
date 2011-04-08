@@ -3,11 +3,21 @@ package ru.nsu.ci.translator;
 
 public interface SITreeConstants
 {
-  public int JJTSTART = 0;
+  public int JJTVOID = 0;
+  public int JJTTURN = 1;
+  public int JJTMOV = 2;
+  public int JJTFORE = 3;
+  public int JJTCANCEL = 4;
+  public int JJTRESTART = 5;
 
 
   public String[] jjtNodeName = {
-    "start",
+    "void",
+    "turn",
+    "mov",
+    "fore",
+    "cancel",
+    "restart",
   };
 }
-/* JavaCC - OriginalChecksum=d9e1d85a2a5e680d2857776514dd09ab (do not edit this line) */
+/* JavaCC - OriginalChecksum=ac8bff7958939a4477de409a8b5094eb (do not edit this line) */
