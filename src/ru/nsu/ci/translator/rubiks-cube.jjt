@@ -3,6 +3,9 @@ options{
   VISITOR=true;
   MULTI=true;
   NODE_DEFAULT_VOID=true;
+  NODE_EXTENDS="ru.nsu.ci.RubicNode";
+  UNICODE_INPUT = true;
+  JAVA_UNICODE_ESCAPE = true;
 }
 PARSER_BEGIN(SI)
 package ru.nsu.ci.translator;
@@ -21,10 +24,12 @@ import java.io.PrintStream;
             } */
           }
  PARSER_END(SI)
-
+/*
  SKIP: {" "}
  TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
  TOKEN:{  <NUMBER : (["0"-"9"])+ >}
+ TOKEN:{  <POCH: "POCH" >}
+ TOKEN:{  <PRCH: "PRCH" >}
  TOKEN:{  <TURN: "TURN" >}
  TOKEN:{  <LETTER: "a" | "b" | "c">}
  TOKEN:{  <MOV: "MOV" >}
@@ -32,16 +37,21 @@ import java.io.PrintStream;
  TOKEN:{  <END: "END" >}
  TOKEN:{  <RESTART: "RESTART">}
  TOKEN:{  <CANCEL: "CANCEL" >}
+ */
 
- /*TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
+ SKIP: {" "}
+ TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
  TOKEN:{  <NUMBER : (["0"-"9"])+ >}
- TOKEN:{  <TURN: "повернуть" ( < NUMBER> | < LETTER > )  < NUMBER> >}
- TOKEN:{  <LETTER: "а" | "б" | "в">}
- TOKEN:{  <MOV: "перейти" < NUMBER > >}
- TOKEN:{  <FOR: "повторить" < NUMBER > >}
- TOKEN:{  <END: "конец" >}
- TOKEN:{  <RESTART: "заново">}
- TOKEN:{  <CANCEL: "отменить" < NUMBER > >}*/
+ TOKEN:{  <POCH: "POCH" >}
+ TOKEN:{  <PRCH: "PRCH" >}
+ TOKEN:{  <TURN: "повернуть" >}
+ TOKEN:{  <LETTER: "a" | "b" | "c">}
+ TOKEN:{  <MOV: "MOV" >}
+ TOKEN:{  <FOR: "FOR" >}
+ TOKEN:{  <END: "END" >}
+ TOKEN:{  <RESTART: "\u0437\u0430\u043d\u043e\u0432\u043e">}
+ TOKEN:{  <CANCEL: "CANCEL" >}
+
  
 
  
@@ -70,12 +80,25 @@ import java.io.PrintStream;
  void turn() throws NumberFormatException #turn:
  {
 	Token t;
+	String lett;
  }
  {
     <TURN> 
      (
-       < NUMBER > | < LETTER > <NUMBER> 
-     ) }
+       
+       (         Number() | t=<LETTER>
+       {
+         lett=t.image;
+         jjtThis.setLett(lett);        }
+      )
+      
+     (                
+         <POCH>
+       | 
+         <PRCH>
+     )
+     
+    ) }
 
  void mov() throws NumberFormatException #mov:
  {
@@ -84,7 +107,7 @@ import java.io.PrintStream;
  {
     <MOV>
      (       
-       < NUMBER >
+      Number()
      ) }
 
  void fore() throws NumberFormatException #fore:
@@ -94,7 +117,7 @@ import java.io.PrintStream;
  {
     <FOR>
      (       
-       < NUMBER >
+      Number()
      )
     <END>
  }
@@ -107,7 +130,7 @@ import java.io.PrintStream;
  {
     <CANCEL>
      (       
-       < NUMBER >
+       Number()
      )
  }
 
@@ -118,3 +141,14 @@ import java.io.PrintStream;
  {
     <RESTART>
  }
+ 
+ void Number ()  throws NumberFormatException #temp:
+{
+  Token t;
+  int num;}
+{         t= <NUMBER>
+       {  
+         num=Integer.parseInt(t.image);
+         jjtThis.setNum(num);
+       }
+}
