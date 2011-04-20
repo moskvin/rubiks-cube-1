@@ -1,7 +1,7 @@
 package ru.nsu.ci.common;
 
 public class RubicsCube implements  RubiksCubeInterface {
-    int [][][] cube =new int[3][3][6];
+    public int [][][] cube =new int[3][3][6];
     int[] povorcube =new int [3];
 	@Override
 	public void abortStep(int step) {

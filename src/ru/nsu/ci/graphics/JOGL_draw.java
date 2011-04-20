@@ -1,11 +1,12 @@
 package ru.nsu.ci.graphics;
+
 import java.awt.Component;
 import java.awt.Frame;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
- 
+
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
 import javax.media.opengl.GL2ES1;
@@ -15,13 +16,12 @@ import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.fixedfunc.GLLightingFunc;
 import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import javax.media.opengl.glu.GLU;
- 
+
 import com.jogamp.opengl.util.Animator;
  
-/**
- * ported to JOGL 2.0 by Julien Gouesse (http://tuer.sourceforge.net)
- */
-public class JOGLQuad implements GLEventListener, KeyListener {
+import ru.nsu.ci.common.RubicsCube;
+
+public class JOGL_draw implements GLEventListener, KeyListener {
     float rotateT = 0.0f;
  
     static GLU glu = new GLU();
@@ -30,31 +30,58 @@ public class JOGLQuad implements GLEventListener, KeyListener {
  
     static Frame frame = new Frame("Jogl Quad drawing");
  
-    static Animator animator = new Animator(canvas);
- 
+    static Animator animator = new Animator(canvas);     
+
+    int [][][] cube =new int[3][3][6];
+     
     public void display(GLAutoDrawable gLDrawable) {
         final GL2 gl = gLDrawable.getGL().getGL2();
+        int i,j,k;
+        float offset1=0.15f,offset2=0;
+        int[] a={0,1,0,0,1,0,0,1,0,2,2,0,0,2,0,2,2,2,3,3,3,0,0,3,3,3,3,4,0,4,4,4,4,0,0,4,0,5,5,0,5,0,5,5,5,6,6,6,6,0,0,6,6,6};
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
         gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
-        gl.glTranslatef(0.0f, 0.0f, -5.0f);
- 
-        // rotate on the three axis
-        gl.glRotatef(rotateT, 1.0f, 0.0f, 0.0f);
-        gl.glRotatef(rotateT, 0.0f, 1.0f, 0.0f);
-        gl.glRotatef(rotateT, 0.0f, 0.0f, 1.0f);
- 
-        // Draw A Quad
-        gl.glBegin(GL2.GL_QUADS);               
-            gl.glColor3f(0.0f, 1.0f, 1.0f);   // set the color of the quad
-            gl.glVertex3f(-1.0f, 1.0f, 0.0f);      // Top Left
-            gl.glVertex3f( 1.0f, 1.0f, 0.0f);       // Top Right
-            gl.glVertex3f( 1.0f,-1.0f, 0.0f);      // Bottom Right
-            gl.glVertex3f(-1.0f,-1.0f, 0.0f);     // Bottom Left
-        // Done Drawing The Quad
-        gl.glEnd();             
- 
-        // increasing rotation for the next iteration                                 
+        gl.glTranslatef(-14f, -5f, -25f);
+        gl.glRotatef(180.0f,1f,0f,0f);
+
+       	for(k=0;k<6;k++)
+   			for(j=0;j<3;j++)
+   		   		for(i=0;i<3;i++)
+       				cube[i][j][k]=a[i+3*j+9*k];
+       	gl.glBegin(GL2.GL_QUADS);
+       		SetColor(gl,0,0,0);
+       	for(k=0;k<6;k++)
+       	{
+       		offset2-=0.15;
+       		for(j=0;j<3;j++)
+       		{
+       			offset1-=0.15;
+       			for(i=0;i<3;i++)
+       			{
+       				SetColor(gl,i,j,k);
+       				gl.glVertex3f(i+offset1,j+offset2,0);
+       				gl.glVertex3f(i+offset1,j+offset2+1,0);
+       				gl.glVertex3f(i+offset1+1,j+offset2+1,0);
+       				gl.glVertex3f(i+offset1+1,j+offset2,0);
+       				offset1+=0.05;
+       			}
+       			offset2+=0.05;
+       		}
+       		if (k<3)
+       			offset1+=3.2;
+       		else if (k==3)
+       		{       			
+       			offset1-=6.4;
+       			offset2-=3.2;
+       		}
+       		else
+       		{       		
+       			offset2+=6.4;
+       		}
+       	}
+       	gl.glEnd();
+                              
         rotateT += 0.2f; 
     }
  
@@ -96,6 +123,21 @@ public class JOGLQuad implements GLEventListener, KeyListener {
  
     public void keyTyped(KeyEvent e) {
     }
+    
+    public void SetColor(GL2 gl, int i,int j,int k)
+    {
+    	//switch (RubicsCube.cube[i][j][k])
+    	switch (cube[i][j][k])
+    	{
+    		case 0:{ gl.glColor3f(1f,1f,1f); break;}
+    		case 1:{ gl.glColor3f(1f,1f,0f); break;}
+    		case 2:{ gl.glColor3f(1f,0f,1f); break;}
+    		case 3:{ gl.glColor3f(0f,1f,1f); break;}
+    		case 4:{ gl.glColor3f(0f,0f,1f); break;}
+    		case 5:{ gl.glColor3f(0.1f,0.2f,0.3f); break;}
+    		case 6:{ gl.glColor3f(0.51f,0.52f,0.53f); break;}
+    	}
+    } 
  
     public static void exit() {
         animator.stop();
@@ -104,7 +146,7 @@ public class JOGLQuad implements GLEventListener, KeyListener {
     }
  
     public static void main(String[] args) {
-        canvas.addGLEventListener(new JOGLQuad());
+        canvas.addGLEventListener(new JOGL_draw());
         frame.add(canvas);
         frame.setSize(640, 480);
         frame.setUndecorated(true);
