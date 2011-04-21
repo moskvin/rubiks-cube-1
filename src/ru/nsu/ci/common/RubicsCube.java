@@ -106,6 +106,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 			cube[3-l][2][4]=cube[2][3-l][0];
 			cube[2][3-l][0]=cube[l][0][2];                     
 			cube[l][0][2]=povorcube[l];
+			//ololo
 		}
 	
 	
