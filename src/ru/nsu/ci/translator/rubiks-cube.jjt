@@ -25,11 +25,11 @@ import java.nio.charset.Charset;
    {
     	public static void main(String[] args) throws ParseException, TokenMgrError, NumberFormatException
     {
-	    ByteArrayInputStream is = new ByteArrayInputStream("повернуть; заново;".getBytes());
+	    ByteArrayInputStream is = new ByteArrayInputStream("повторить 5 раз \n".getBytes());
 	    SI si = new SI(is);
        // SI si=new SI(System.in);
-        si.start(System.out);
-        RubicVisitor visitorC = new RubicVisitor();
+        si.start();
+        RubicVisitor visitorC = new RubicVisitor(System.out);
         si.rootNode().jjtAccept(visitorC,null);
 	}
 	
@@ -63,20 +63,20 @@ import java.nio.charset.Charset;
  SKIP: {" "}
  TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
  TOKEN:{  <NUMBER : (["0"-"9"])+ >}
- TOKEN:{  <POCH: "POCH" >}
- TOKEN:{  <PRCH: "PRCH" >}
+ TOKEN:{  <POCH: "поЧасовой" >}
+ TOKEN:{  <PRCH: "прЧасовой" >}
  TOKEN:{  <TURN: "повернуть" >}
- TOKEN:{  <LETTER: "a" | "b" | "c">}
- TOKEN:{  <MOV: "MOV" >}
- TOKEN:{  <FOR: "FOR" >}
- TOKEN:{  <END: "END" >}
- TOKEN:{  <RESTART: "\u0437\u0430\u043d\u043e\u0432\u043e">}
- TOKEN:{  <CANCEL: "CANCEL" >}
+ TOKEN:{  <LETTER: "а" | "б" | "в">}
+ TOKEN:{  <MOV: "перейти" >}
+ TOKEN:{  <FOR: "повторить" >}
+ TOKEN:{  <END: "раз" >}
+ TOKEN:{  <RESTART: "заново">}
+ TOKEN:{  <CANCEL: "отменить" >}
 
  
 
  
- void start(PrintStream printStream) throws NumberFormatException:
+ void start() throws NumberFormatException:
  {
 	Token t;
  }
@@ -95,7 +95,7 @@ import java.nio.charset.Charset;
 )
 <EOL>
    )*
-  <EOF>
+  //<EOF>
  }
 
  void turn() throws NumberFormatException #turn:
@@ -131,14 +131,15 @@ import java.nio.charset.Charset;
       Number()
      ) }
 
- void fore() throws NumberFormatException #fore:
+ void fore() throws NumberFormatException :
  {
 	Token t;
  }
  {
     <FOR>
      (       
-      Number()
+      Number() #fore
+      start()
      )
     <END>
  }

@@ -11,11 +11,11 @@ import java.nio.charset.Charset;
   public class SI/*@bgen(jjtree)*/implements SITreeConstants, SIConstants {/*@bgen(jjtree)*/
   protected JJTSIState jjtree = new JJTSIState();public static void main(String[] args) throws ParseException, TokenMgrError, NumberFormatException
     {
-            ByteArrayInputStream is = new ByteArrayInputStream("\u0420\u0457\u0420\u0455\u0420\u0406\u0420\u00b5\u0421\u0402\u0420\u0405\u0421\u0453\u0421\u201a\u0421\u040a; \u0420\u00b7\u0420\u00b0\u0420\u0405\u0420\u0455\u0420\u0406\u0420\u0455;".getBytes());
+            ByteArrayInputStream is = new ByteArrayInputStream("\u0420\u0457\u0420\u0455\u0420\u0406\u0421\u201a\u0420\u0455\u0421\u0402\u0420\u0451\u0421\u201a\u0421\u040a 5 \u0421\u0402\u0420\u00b0\u0420\u00b7 \u005cn".getBytes());
             SI si = new SI(is);
        // SI si=new SI(System.in);
-        si.start(System.out);
-        RubicVisitor visitorC = new RubicVisitor();
+        si.start();
+        RubicVisitor visitorC = new RubicVisitor(System.out);
         si.rootNode().jjtAccept(visitorC,null);
         }
 
@@ -24,7 +24,7 @@ import java.nio.charset.Charset;
        return jjtree.rootNode();
      }
 
-  final public void start(PrintStream printStream) throws ParseException, NumberFormatException {
+  final public void start() throws ParseException, NumberFormatException {
         Token t;
     label_1:
     while (true) {
@@ -63,7 +63,6 @@ import java.nio.charset.Charset;
       }
       jj_consume_token(EOL);
     }
-    jj_consume_token(0);
   }
 
   final public void turn() throws ParseException, NumberFormatException {
@@ -161,38 +160,39 @@ import java.nio.charset.Charset;
   }
 
   final public void fore() throws ParseException, NumberFormatException {
-  /*@bgen(jjtree) fore */
-        ASTfore jjtn000 = new ASTfore(JJTFORE);
-        boolean jjtc000 = true;
-        jjtree.openNodeScope(jjtn000);
-        jjtn000.jjtSetFirstToken(getToken(1));Token t;
+        Token t;
+    jj_consume_token(FOR);
+        ASTfore jjtn001 = new ASTfore(JJTFORE);
+        boolean jjtc001 = true;
+        jjtree.openNodeScope(jjtn001);
+        jjtn001.jjtSetFirstToken(getToken(1));
     try {
-      jj_consume_token(FOR);
       Number();
-      jj_consume_token(END);
-    } catch (Throwable jjte000) {
-      if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof NumberFormatException) {
-        {if (true) throw (NumberFormatException)jjte000;}
-      }
-      if (jjte000 instanceof RuntimeException) {
-        {if (true) throw (RuntimeException)jjte000;}
-      }
-      if (jjte000 instanceof ParseException) {
-        {if (true) throw (ParseException)jjte000;}
-      }
-      {if (true) throw (Error)jjte000;}
+    } catch (Throwable jjte001) {
+        if (jjtc001) {
+          jjtree.clearNodeScope(jjtn001);
+          jjtc001 = false;
+        } else {
+          jjtree.popNode();
+        }
+        if (jjte001 instanceof NumberFormatException) {
+          {if (true) throw (NumberFormatException)jjte001;}
+        }
+        if (jjte001 instanceof RuntimeException) {
+          {if (true) throw (RuntimeException)jjte001;}
+        }
+        if (jjte001 instanceof ParseException) {
+          {if (true) throw (ParseException)jjte001;}
+        }
+        {if (true) throw (Error)jjte001;}
     } finally {
-      if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-        jjtn000.jjtSetLastToken(getToken(0));
-      }
+        if (jjtc001) {
+          jjtree.closeNodeScope(jjtn001, true);
+          jjtn001.jjtSetLastToken(getToken(0));
+        }
     }
+    start();
+    jj_consume_token(END);
   }
 
   final public void cancel() throws ParseException, NumberFormatException {

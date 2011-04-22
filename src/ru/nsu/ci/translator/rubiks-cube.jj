@@ -29,11 +29,11 @@ import java.nio.charset.Charset;
 /*@egen*/
     	public static void main(String[] args) throws ParseException, TokenMgrError, NumberFormatException
     {
-	    ByteArrayInputStream is = new ByteArrayInputStream("\u0420\u0457\u0420\u0455\u0420\u0406\u0420\u00b5\u0421\u0402\u0420\u0405\u0421\u0453\u0421\u201a\u0421\u040a; \u0420\u00b7\u0420\u00b0\u0420\u0405\u0420\u0455\u0420\u0406\u0420\u0455;".getBytes());
+	    ByteArrayInputStream is = new ByteArrayInputStream("\u0420\u0457\u0420\u0455\u0420\u0406\u0421\u201a\u0420\u0455\u0421\u0402\u0420\u0451\u0421\u201a\u0421\u040a 5 \u0421\u0402\u0420\u00b0\u0420\u00b7 \n".getBytes());
 	    SI si = new SI(is);
        // SI si=new SI(System.in);
-        si.start(System.out);
-        RubicVisitor visitorC = new RubicVisitor();
+        si.start();
+        RubicVisitor visitorC = new RubicVisitor(System.out);
         si.rootNode().jjtAccept(visitorC,null);
 	}
 	
@@ -67,20 +67,20 @@ import java.nio.charset.Charset;
  SKIP: {" "}
  TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
  TOKEN:{  <NUMBER : (["0"-"9"])+ >}
- TOKEN:{  <POCH: "POCH" >}
- TOKEN:{  <PRCH: "PRCH" >}
+ TOKEN:{  <POCH: "\u0420\u0457\u0420\u0455\u0420\u00a7\u0420\u00b0\u0421\u0403\u0420\u0455\u0420\u0406\u0420\u0455\u0420\u2116" >}
+ TOKEN:{  <PRCH: "\u0420\u0457\u0421\u0402\u0420\u00a7\u0420\u00b0\u0421\u0403\u0420\u0455\u0420\u0406\u0420\u0455\u0420\u2116" >}
  TOKEN:{  <TURN: "\u0420\u0457\u0420\u0455\u0420\u0406\u0420\u00b5\u0421\u0402\u0420\u0405\u0421\u0453\u0421\u201a\u0421\u040a" >}
- TOKEN:{  <LETTER: "a" | "b" | "c">}
- TOKEN:{  <MOV: "MOV" >}
- TOKEN:{  <FOR: "FOR" >}
- TOKEN:{  <END: "END" >}
- TOKEN:{  <RESTART: "\u0437\u0430\u043d\u043e\u0432\u043e">}
- TOKEN:{  <CANCEL: "CANCEL" >}
+ TOKEN:{  <LETTER: "\u0420\u00b0" | "\u0420\u00b1" | "\u0420\u0406">}
+ TOKEN:{  <MOV: "\u0420\u0457\u0420\u00b5\u0421\u0402\u0420\u00b5\u0420\u2116\u0421\u201a\u0420\u0451" >}
+ TOKEN:{  <FOR: "\u0420\u0457\u0420\u0455\u0420\u0406\u0421\u201a\u0420\u0455\u0421\u0402\u0420\u0451\u0421\u201a\u0421\u040a" >}
+ TOKEN:{  <END: "\u0421\u0402\u0420\u00b0\u0420\u00b7" >}
+ TOKEN:{  <RESTART: "\u0420\u00b7\u0420\u00b0\u0420\u0405\u0420\u0455\u0420\u0406\u0420\u0455">}
+ TOKEN:{  <CANCEL: "\u0420\u0455\u0421\u201a\u0420\u0458\u0420\u00b5\u0420\u0405\u0420\u0451\u0421\u201a\u0421\u040a" >}
 
  
 
  
- void start(PrintStream printStream) throws NumberFormatException:
+ void start() throws NumberFormatException:
  {
 	Token t;
  }
@@ -99,7 +99,7 @@ import java.nio.charset.Charset;
 )
 <EOL>
    )*
-  <EOF>
+  //<EOF>
  }
 
  void turn() throws NumberFormatException      :
@@ -197,47 +197,49 @@ import java.nio.charset.Charset;
     }
 /*@egen*/ }
 
- void fore() throws NumberFormatException      :
- {/*@bgen(jjtree) fore */
-        ASTfore jjtn000 = new ASTfore(JJTFORE);
-        boolean jjtc000 = true;
-        jjtree.openNodeScope(jjtn000);
-        jjtn000.jjtSetFirstToken(getToken(1));
-/*@egen*/
+ void fore() throws NumberFormatException :
+ {
 	Token t;
  }
- {/*@bgen(jjtree) fore */
-    try {
-/*@egen*/
+ {
     <FOR>
-     (       
-      Number()
+     (/*@bgen(jjtree) fore */
+      {
+        ASTfore jjtn001 = new ASTfore(JJTFORE);
+        boolean jjtc001 = true;
+        jjtree.openNodeScope(jjtn001);
+        jjtn001.jjtSetFirstToken(getToken(1));
+      }
+      try {
+/*@egen*/       
+      Number()/*@bgen(jjtree)*/
+      } catch (Throwable jjte001) {
+        if (jjtc001) {
+          jjtree.clearNodeScope(jjtn001);
+          jjtc001 = false;
+        } else {
+          jjtree.popNode();
+        }
+        if (jjte001 instanceof NumberFormatException) {
+          throw (NumberFormatException)jjte001;
+        }
+        if (jjte001 instanceof RuntimeException) {
+          throw (RuntimeException)jjte001;
+        }
+        if (jjte001 instanceof ParseException) {
+          throw (ParseException)jjte001;
+        }
+        throw (Error)jjte001;
+      } finally {
+        if (jjtc001) {
+          jjtree.closeNodeScope(jjtn001, true);
+          jjtn001.jjtSetLastToken(getToken(0));
+        }
+      }
+/*@egen*/      
+      start()
      )
-    <END>/*@bgen(jjtree)*/
-    } catch (Throwable jjte000) {
-      if (jjtc000) {
-        jjtree.clearNodeScope(jjtn000);
-        jjtc000 = false;
-      } else {
-        jjtree.popNode();
-      }
-      if (jjte000 instanceof NumberFormatException) {
-        throw (NumberFormatException)jjte000;
-      }
-      if (jjte000 instanceof RuntimeException) {
-        throw (RuntimeException)jjte000;
-      }
-      if (jjte000 instanceof ParseException) {
-        throw (ParseException)jjte000;
-      }
-      throw (Error)jjte000;
-    } finally {
-      if (jjtc000) {
-        jjtree.closeNodeScope(jjtn000, true);
-        jjtn000.jjtSetLastToken(getToken(0));
-      }
-    }
-/*@egen*/
+    <END>
  }
 
 
