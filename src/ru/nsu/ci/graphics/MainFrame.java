@@ -35,7 +35,7 @@ public class MainFrame extends JFrame {
 		panelControl.add(text);
 		panelControl.add(button);
 		button.setSize(100, 50);
-	    JOGL_draw.main(null, panelDraw, frame);
+	//    JOGL_draw.main(null, panelDraw, frame);
 	    
 		animator.start();
 		canvas.requestFocus();

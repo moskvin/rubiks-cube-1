@@ -19,14 +19,10 @@ public class Main {
 	
 
 	public static void main(String[] args) throws ParseException, TokenMgrError, NumberFormatException
-{
-<<<<<<< HEAD
-
-=======
+{		
 		new MainFrame();
->>>>>>> c9aec0a623f7612690b193a3c3069d1ae19d820a
         SI si=new SI(System.in);
-        si.start(System.out);
+        si.start();
     //    RubicVisitor visitorC = new RubicVisitor();
     //    si.rootNode().jjtAccept(visitorC,null);
 	}
