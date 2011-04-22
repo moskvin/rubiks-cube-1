@@ -30,10 +30,10 @@ public class JOGL_draw implements GLEventListener, KeyListener {
  
     static Frame frame = new Frame("Jogl Quad drawing");
  
-    static Animator animator = new Animator(canvas);     
-
-    int [][][] cube =new int[3][3][6];
-     
+    static Animator animator = new Animator(canvas); 
+    
+    RubicsCube rubicsCube = new RubicsCube();
+    
     public void display(GLAutoDrawable gLDrawable) {
         final GL2 gl = gLDrawable.getGL().getGL2();
         int i,j,k;
@@ -48,7 +48,8 @@ public class JOGL_draw implements GLEventListener, KeyListener {
        	for(k=0;k<6;k++)
    			for(j=0;j<3;j++)
    		   		for(i=0;i<3;i++)
-       				cube[i][j][k]=a[i+3*j+9*k];
+   		   		rubicsCube.cube[i][j][k]=a[i+3*j+9*k];
+       	
        	gl.glBegin(GL2.GL_QUADS);
        		SetColor(gl,0,0,0);
        	for(k=0;k<6;k++)
@@ -126,8 +127,7 @@ public class JOGL_draw implements GLEventListener, KeyListener {
     
     public void SetColor(GL2 gl, int i,int j,int k)
     {
-    	//switch (RubicsCube.cube[i][j][k])
-    	switch (cube[i][j][k])
+    	switch (rubicsCube.cube[i][j][k])
     	{
     		case 0:{ gl.glColor3f(1f,1f,1f); break;}
     		case 1:{ gl.glColor3f(1f,1f,0f); break;}
@@ -165,3 +165,25 @@ public class JOGL_draw implements GLEventListener, KeyListener {
         // do nothing
     }
 }
+/*
+              .,-:;//;:=,
+          . :H@@@MM@M#H/.,+%;,
+       ,/X+ +M@@M@MM%=,-%HMMM@X/,
+     -+@MM; $M@@MH+-,;XMMMM@MMMM@+-
+    ;@M@@M- XM@X;. -+XXXXXHHH@M@M#@/.
+  ,%MM@@MH ,@%=             .---=-=:=,.
+  =@#@@@MX.,                -%HX$$%%%:;
+ =-./@M@M$                   .;@MMMM@MM:
+ X@/ -$MM/                    . +MM@@@M$
+,@M@H: :@:                    . =X#@@@@-
+,@@@MMX, .                    /H- ;@M@M=
+.H@@@@M@+,                    %MM+..%#$.
+ /MMMM@MMH/.                  XM@MH; =;
+  /%+%$XHH@$=              , .H@@@@MX,
+   .=--------.           -%H.,@@@@@MX,
+   .%MM@@@HHHXX$$$%+- .:$MMX =M@@MM%.
+     =XMMM@MM@MM#H;,-+HMM@M+ /MMMX=
+       =%@M@M#@$-.=$@MM@@@M; %M%=
+         ,:+$+-,/H#MMMMMMM@= =,
+               =++%%%%+/:-.
+*/
