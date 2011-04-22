@@ -13,10 +13,10 @@ import ru.nsu.ci.translator.TokenMgrError;
 public class Main {
 	public static void main(String[] args) throws ParseException, TokenMgrError, NumberFormatException
 {
-	//	new MainFrame();
+		new MainFrame();
         SI si=new SI(System.in);
         si.start(System.out);
-        RubicVisitor visitorC = new RubicVisitor();
-        si.rootNode().jjtAccept(visitorC,null);
+    //    RubicVisitor visitorC = new RubicVisitor();
+    //    si.rootNode().jjtAccept(visitorC,null);
 	}
 }
