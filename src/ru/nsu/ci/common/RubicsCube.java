@@ -1,7 +1,8 @@
-package ru.nsu.ci.common;
+п»їpackage ru.nsu.ci.common;
 
 public class RubicsCube implements  RubiksCubeInterface {
     public int [][][] cube =new int[3][3][6];
+    int l;
     int[] povorcube =new int [3];
 	@Override
 	public void abortStep(int step) {
@@ -92,7 +93,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	        cube[2-l][0][5]=cube[2][2-l][3];
 	        cube[2][2-l][3]=cube[l][0][4];
 	        cube[l][0][4]=n;
-	    }//первая плоскость
+	    }//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	case 1 :
 		for(l=0;l<3;l++)
 	    {
@@ -101,7 +102,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	        cube[0][l][5]=cube[0][2-l][0];
 	        cube[0][2-l][0]=cube[0][2-l][4];
 	        cube[0][2-l][4]=n;
-	    } //Вторая плоскость
+	    } //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	case 2 :    for(l=0;l<3;l++)
 	    {
 	        n=cube[0][l][1];
@@ -109,7 +110,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	        cube[2-l][2][5]=cube[0][2-l][3];
 	        cube[0][2-l][3]=cube[l][2][4];
 	        cube[l][2][4]=n;
-	    } //Третья плоскость
+	    } //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	case 3 :    for(l=0;l<3;l++)
 	    {
 	        n=cube[2][l][2];
@@ -117,7 +118,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	        cube[2][l][5]=cube[2][2-l][0];
 	        cube[2][2-l][0]=cube[2][2-l][4];
 	        cube[2][2-l][4]=n;
-	    } //Четвертая плоскость
+	    } //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	case 4 :    for(l=0;l<3;l++)
 	    {
 	        n=cube[2-l][2][1];
@@ -125,7 +126,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	        cube[2-l][2][0]=cube[l][2][3];
 	        cube[l][2][3]=cube[l][2][2];
 	        cube[l][2][2]=n;
-	    } //Пятая плоскость
+	    } //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	case 5 :     for(l=0;l<3;l++)
 	    {
 	        n=cube[2-l][0][1];
@@ -133,7 +134,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	        cube[2-l][0][0]=cube[l][0][3];
 	        cube[l][0][3]=cube[l][0][2];
 	        cube[l][0][2]=n;
-	    } //Шестая плоскость
+	    } //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	
 	
 	
@@ -143,7 +144,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	    
 	}else
 	{
-		for (int l=0;l<2;l++)
+		for (l=0;l<2;l++)
 		{
 			cube[l][0][k]=cube[0][2-l][k];
 			cube[0][2-l][k]=cube[2-l][2][k];
@@ -159,7 +160,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 		        cube[l][0][4]=cube[2][2-l][3]; 
 		        cube[2][2-l][3]=cube[2-l][0][5];
 		        cube[2-l][0][5]=n;
-		    }//первая плоскость
+		    }//пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		case 1 :
 			for(l=0;l<3;l++)
 		    {
@@ -168,7 +169,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 		        cube[0][2-l][4]=cube[0][2-l][0]; 
 		        cube[0][2-l][0]=cube[0][l][5];
 		        cube[0][l][5]=n;
-		    } //Вторая плоскость
+		    } //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		case 2 :    for(l=0;l<3;l++)
 		    {
 		        n=cube[0][l][1];
@@ -176,7 +177,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 		        cube[l][2][4]=cube[0][2-l][3]; 
 		        cube[0][2-l][3]=cube[2-l][2][5];
 		        cube[2-l][2][5]=n;
-		    } //Третья плоскость
+		    } //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		case 3 :    for(l=0;l<3;l++)
 		    {
 		        n=cube[2][l][2];
@@ -184,7 +185,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 		        cube[2][2-l][4]=cube[2][2-l][0]; 
 		        cube[2][2-l][0]=cube[2][l][5];
 		        cube[2][l][5]=n;
-		    } //Четвертая плоскость
+		    } //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		case 4 :    for(l=0;l<3;l++)
 		    {
 		        n=cube[2-l][2][1];
@@ -192,16 +193,16 @@ public class RubicsCube implements  RubiksCubeInterface {
 		        cube[l][2][2]=cube[l][2][3]; 
 		        cube[l][2][3]=cube[2-l][2][0];
 		        cube[2-l][2][0]=n;
-		    } //Пятая плоскость
+		    } //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		case 5 :     for(l=0;l<3;l++)
 		    {
 		        n=cube[2-l][0][1];
-		        cube[2-l][0][1]=cube[l][0][2] 
+		        cube[2-l][0][1]=cube[l][0][2]; 
 		        cube[l][0][2]=cube[l][0][3];
 		        cube[l][0][3]=cube[2-l][0][0];
 		        cube[2-l][0][0]=n;
-		    } //Шестая плоскость
-		 
+		    } //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+		}
 	}
 	
 	}
@@ -213,3 +214,4 @@ public class RubicsCube implements  RubiksCubeInterface {
 	}
 
 }
+
