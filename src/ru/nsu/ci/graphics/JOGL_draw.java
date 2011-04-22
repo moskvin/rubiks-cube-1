@@ -36,7 +36,7 @@ public class JOGL_draw implements GLEventListener, KeyListener {
     
     public void display(GLAutoDrawable gLDrawable) {
         final GL2 gl = gLDrawable.getGL().getGL2();
-        int i,j,k;
+        int i,j,k,k2;
         float offset1=0.15f,offset2=0;
         int[] a={0,1,0,0,1,0,0,1,0,2,2,0,0,2,0,2,2,2,3,3,3,0,0,3,3,3,3,4,0,4,4,4,4,0,0,4,0,5,5,0,5,0,5,5,5,6,6,6,6,0,0,6,6,6};
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
@@ -44,7 +44,6 @@ public class JOGL_draw implements GLEventListener, KeyListener {
         gl.glLoadIdentity();
         gl.glTranslatef(-14f, -5f, -25f);
         gl.glRotatef(180.0f,1f,0f,0f);
-
        	for(k=0;k<6;k++)
    			for(j=0;j<3;j++)
    		   		for(i=0;i<3;i++)
@@ -54,6 +53,15 @@ public class JOGL_draw implements GLEventListener, KeyListener {
        		SetColor(gl,0,0,0);
        	for(k=0;k<6;k++)
        	{
+       		/*switch (k)
+       		{
+       			case 0: k2=2;
+       			case 1: k2=5;
+       			case 2: k2=2;
+       			case 3: k2=2;
+       			case 4: k2=2;
+       			case 5: k2=2;
+       		}*/
        		offset2-=0.15;
        		for(j=0;j<3;j++)
        		{

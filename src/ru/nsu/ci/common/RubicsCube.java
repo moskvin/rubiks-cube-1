@@ -1,4 +1,4 @@
-package ru.nsu.ci.common;
+﻿package ru.nsu.ci.common;
 
 public class RubicsCube implements  RubiksCubeInterface {
     public int [][][] cube =new int[3][3][6];
@@ -214,3 +214,4 @@ public class RubicsCube implements  RubiksCubeInterface {
 	}
 
 }
+
