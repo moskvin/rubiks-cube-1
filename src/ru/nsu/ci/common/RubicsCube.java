@@ -1,10 +1,13 @@
 package ru.nsu.ci.common;
 
+import java.io.PushbackInputStream;
+import java.util.Queue;
 import java.util.Random;
-
+import java.util.concurrent.ConcurrentLinkedQueue;
 public class RubicsCube implements  RubiksCubeInterface {
 	 private static Random random = new Random();
-
+	 Queue  queue = new ConcurrentLinkedQueue();
+	  
 
 	public int [][][] cube =new int[3][3][6];
     int[] povorcube =new int [3];
@@ -73,7 +76,13 @@ public class RubicsCube implements  RubiksCubeInterface {
 	}
 
 	@Override
-	public void saveStep() {
+	public void saveStep(int k,int goriz) {
+	queue.offer(k);
+	
+	if (queue.size()>10){
+		
+	}
+		
 		
 		
 	}
@@ -82,11 +91,14 @@ public class RubicsCube implements  RubiksCubeInterface {
 	public void turnGoriz( int k, int goriz) {
 		int l;
 		int n;
-	for (l=0;l<3;l++){//Запоминаем верхнюю строку
+		
+    if (goriz!=0){
+    	saveStep( k, goriz);
+    	for (l=0;l<3;l++){//Запоминаем верхнюю строку
 		povorcube[l]=cube[l][0][k];
 	}
 	
-	if (goriz>=0){
+	if (goriz>0){
 	for(l=0;l<2;l++){
 		cube[0][l][k]=cube[2-1][0][k];
 	    cube[2-l][0][k]=cube[2][2-l][k];
@@ -217,7 +229,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	}
 	}
 
-
+	}
 
 
 }
