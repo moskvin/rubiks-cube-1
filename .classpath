@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="lib/gluegen-gl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="rubiks-cube-1/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/gluegen-rt-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="moskvin-rubiks-cube-1-0e08220/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jogl-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.all-noawt.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.all.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.awt.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.core.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.egl.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.gldesktop.dbg.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.gldesktop.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.gles1.dbg.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.gles1.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.gles2.dbg.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.gles2.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.glu.gldesktop.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.glu.mipmap.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.glu.tess.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.os.osx.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.os.win.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.os.x11.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.sdk.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.test.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.util.awt.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.util.fixedfuncemu.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.util.gldesktop.jar"/>
+	<classpathentry kind="lib" path="lib/jogl.util.jar"/>
+	<classpathentry kind="lib" path="lib/nativewindow-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="lib/nativewindow.all-noawt.jar"/>
+	<classpathentry kind="lib" path="lib/nativewindow.all.jar"/>
+	<classpathentry kind="lib" path="lib/nativewindow.awt.jar"/>
+	<classpathentry kind="lib" path="lib/nativewindow.core.jar"/>
+	<classpathentry kind="lib" path="lib/nativewindow.os.win.jar"/>
+	<classpathentry kind="lib" path="lib/nativewindow.os.x11.jar"/>
+	<classpathentry kind="lib" path="lib/newt-natives-windows-i586.jar"/>
+	<classpathentry kind="lib" path="lib/newt.all-noawt.jar"/>
+	<classpathentry kind="lib" path="lib/newt.all.jar"/>
+	<classpathentry kind="lib" path="lib/newt.awt.jar"/>
+	<classpathentry kind="lib" path="lib/newt.core.jar"/>
+	<classpathentry kind="lib" path="lib/newt.event.jar"/>
+	<classpathentry kind="lib" path="lib/newt.hw.broadcomegl.jar"/>
+	<classpathentry kind="lib" path="lib/newt.hw.intelgdl.jar"/>
+	<classpathentry kind="lib" path="lib/newt.ogl.jar"/>
+	<classpathentry kind="lib" path="lib/newt.os.osx.jar"/>
+	<classpathentry kind="lib" path="lib/newt.os.win.jar"/>
+	<classpathentry kind="lib" path="lib/newt.os.x11.jar"/>
+	<classpathentry kind="lib" path="lib/gluegen-rt.dll">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="rubiks-cube-1/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="lib/jogl_desktop.dll"/>
+	<classpathentry kind="lib" path="lib/jogl_es1.dll"/>
+	<classpathentry kind="lib" path="lib/jogl_es2.dll"/>
+	<classpathentry kind="lib" path="lib/nativewindow_awt.dll"/>
+	<classpathentry kind="lib" path="lib/nativewindow_win32.dll"/>
+	<classpathentry kind="lib" path="lib/newt.dll"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
