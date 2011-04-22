@@ -1,17 +1,38 @@
+
+
 options{
+  JDK_VERSION = "1.6";
   STATIC=false;
   VISITOR=true;
   MULTI=true;
   NODE_DEFAULT_VOID=true;
   NODE_EXTENDS="ru.nsu.ci.RubicNode";
-  UNICODE_INPUT = true;
+  UNICODE_INPUT = false;
   JAVA_UNICODE_ESCAPE = true;
+  TRACK_TOKENS=true;
 }
 PARSER_BEGIN(SI)
 package ru.nsu.ci.translator;
 import java.io.PrintStream;
+import ru.nsu.ci.RubicVisitor;
+import ru.nsu.ci.translator.SI;
+import ru.nsu.ci.translator.ParseException;
+import ru.nsu.ci.translator.TokenMgrError;
+import java.io.*;
+import java.nio.charset.Charset;
+
   public class SI
    {
+    	public static void main(String[] args) throws ParseException, TokenMgrError, NumberFormatException
+    {
+	    ByteArrayInputStream is = new ByteArrayInputStream("повернуть; заново;".getBytes());
+	    SI si = new SI(is);
+       // SI si=new SI(System.in);
+        si.start(System.out);
+        RubicVisitor visitorC = new RubicVisitor();
+        si.rootNode().jjtAccept(visitorC,null);
+	}
+	
      public Node rootNode()
      {
        return jjtree.rootNode();
