@@ -9,5 +9,6 @@ public interface SIVisitor
   public Object visit(ASTfore node, Object data);
   public Object visit(ASTcancel node, Object data);
   public Object visit(ASTrestart node, Object data);
+  public Object visit(ASTtemp node, Object data);
 }
-/* JavaCC - OriginalChecksum=e6d1eae7d381d1cb3c554fed02b99808 (do not edit this line) */
+/* JavaCC - OriginalChecksum=2195d78a4c7337c5fdffd40c6d40557c (do not edit this line) */

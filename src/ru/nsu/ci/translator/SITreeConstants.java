@@ -9,6 +9,7 @@ public interface SITreeConstants
   public int JJTFORE = 3;
   public int JJTCANCEL = 4;
   public int JJTRESTART = 5;
+  public int JJTTEMP = 6;
 
 
   public String[] jjtNodeName = {
@@ -18,6 +19,7 @@ public interface SITreeConstants
     "fore",
     "cancel",
     "restart",
+    "temp",
   };
 }
-/* JavaCC - OriginalChecksum=ac8bff7958939a4477de409a8b5094eb (do not edit this line) */
+/* JavaCC - OriginalChecksum=e5b8913d9dadc7ea4d01b0305968da49 (do not edit this line) */

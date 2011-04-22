@@ -15,19 +15,23 @@ public interface SIConstants {
   /** RegularExpression Id. */
   int NUMBER = 3;
   /** RegularExpression Id. */
-  int TURN = 4;
+  int POCH = 4;
   /** RegularExpression Id. */
-  int LETTER = 5;
+  int PRCH = 5;
   /** RegularExpression Id. */
-  int MOV = 6;
+  int TURN = 6;
   /** RegularExpression Id. */
-  int FOR = 7;
+  int LETTER = 7;
   /** RegularExpression Id. */
-  int END = 8;
+  int MOV = 8;
   /** RegularExpression Id. */
-  int RESTART = 9;
+  int FOR = 9;
   /** RegularExpression Id. */
-  int CANCEL = 10;
+  int END = 10;
+  /** RegularExpression Id. */
+  int RESTART = 11;
+  /** RegularExpression Id. */
+  int CANCEL = 12;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -38,12 +42,14 @@ public interface SIConstants {
     "\" \"",
     "<EOL>",
     "<NUMBER>",
-    "\"TURN\"",
+    "\"POCH\"",
+    "\"PRCH\"",
+    "\"\\u0420\\u0457\\u0420\\u0455\\u0420\\u0406\\u0420\\u00b5\\u0421\\u0402\\u0420\\u0405\\u0421\\u0453\\u0421\\u201a\\u0421\\u040a\"",
     "<LETTER>",
     "\"MOV\"",
     "\"FOR\"",
     "\"END\"",
-    "\"RESTART\"",
+    "\"\\u0437\\u0430\\u043d\\u043e\\u0432\\u043e\"",
     "\"CANCEL\"",
   };
 
