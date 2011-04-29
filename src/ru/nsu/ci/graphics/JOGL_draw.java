@@ -1,3 +1,32 @@
+/*
+              .,-:;//;:=,
+          . :H@@@MM@M#H/.,+%;,
+       ,/X+ +M@@M@MM%=,-%HMMM@X/,
+     -+@MM; $M@@MH+-,;XMMMM@MMMM@+-
+    ;@M@@M- XM@X;. -+XXXXXHHH@M@M#@/.
+  ,%MM@@MH ,@%=             .---=-=:=,.
+  =@#@@@MX.,                -%HX$$%%%:;
+ =-./@M@M$                   .;@MMMM@MM:
+ X@/ -$MM/                    . +MM@@@M$
+,@M@H: :@:                    . =X#@@@@-
+,@@@MMX, .                    /H- ;@M@M=
+.H@@@@M@+,                    %MM+..%#$.
+ /MMMM@MMH/.                  XM@MH; =;
+  /%+%$XHH@$=              , .H@@@@MX,
+   .=--------.           -%H.,@@@@@MX,
+   .%MM@@@HHHXX$$$%+- .:$MMX =M@@MM%.
+     =XMMM@MM@MM#H;,-+HMM@M+ /MMMX=
+       =%@M@M#@$-.=$@MM@@@M; %M%=
+         ,:+$+-,/H#MMMMMMM@= =,
+               =++%%%%+/:-.             
+*/
+//I’m making a note here: huge success
+
+//Вращать куб стрелками. Любые изменения массива cube будут отображены на кубе и развертке сразу же
+//Повороты все еще не анимированы, но зато теперь видны кубики, а не просто плоскости в пространстве 
+//Осталось разве что отцентрировать камеру, да мышь прикрутить
+//Клавиша Enter - нанесение на куб заранее подготовленного мной тестового массива. Это на случай если генерация кубика еще не готова.
+
 package ru.nsu.ci.graphics;
 
 import java.awt.Component;
@@ -28,69 +57,137 @@ public class JOGL_draw implements GLEventListener, KeyListener {
  
     static GLCanvas canvas = new GLCanvas();
  
-    static Frame frame = new Frame("Jogl Quad drawing");
+    static Frame frame = new Frame("Rubik's Cube");
  
     static Animator animator = new Animator(canvas); 
     
     RubicsCube rubicsCube = new RubicsCube();
     
+    float rot1=180f;
+    float rot2=0;
+    float rot3=0;
+    
     public void display(GLAutoDrawable gLDrawable) {
         final GL2 gl = gLDrawable.getGL().getGL2();
-        int i,j,k,k2;
-        float offset1=0.15f,offset2=0;
-        int[] a={0,1,0,0,1,0,0,1,0,2,2,0,0,2,0,2,2,2,3,3,3,0,0,3,3,3,3,4,0,4,4,4,4,0,0,4,0,5,5,0,5,0,5,5,5,6,6,6,6,0,0,6,6,6};
+        int i,j,k,k2=0;
+        gl.glClearColor(0.79f, 0.8f, 0.8f, 0f);
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
         gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
-        gl.glTranslatef(-14f, -5f, -25f);
+        gl.glPushMatrix();
+        gl.glTranslatef(-18f, -5f, -25f);
         gl.glRotatef(180.0f,1f,0f,0f);
-       	for(k=0;k<6;k++)
-   			for(j=0;j<3;j++)
-   		   		for(i=0;i<3;i++)
-   		   		rubicsCube.cube[i][j][k]=a[i+3*j+9*k];
        	
-       	gl.glBegin(GL2.GL_QUADS);
-       		SetColor(gl,0,0,0);
        	for(k=0;k<6;k++)
        	{
-       		/*switch (k)
+       		switch (k)
        		{
-       			case 0: k2=2;
-       			case 1: k2=5;
-       			case 2: k2=2;
-       			case 3: k2=2;
-       			case 4: k2=2;
-       			case 5: k2=2;
-       		}*/
-       		offset2-=0.15;
+       			case 0: {k2=5; break;}
+       			case 1: {k2=0; break;}
+       			case 2: {k2=4; break;}
+       			case 3: {k2=2; break;}
+       			case 4: {k2=1; break;}
+       			case 5: {k2=3; break;}
+       		}
+       		gl.glTranslatef(0f,-0.15f,0f);
        		for(j=0;j<3;j++)
        		{
-       			offset1-=0.15;
+       			gl.glTranslatef(-0.15f,0f, 0f);
        			for(i=0;i<3;i++)
        			{
-       				SetColor(gl,i,j,k);
-       				gl.glVertex3f(i+offset1,j+offset2,0);
-       				gl.glVertex3f(i+offset1,j+offset2+1,0);
-       				gl.glVertex3f(i+offset1+1,j+offset2+1,0);
-       				gl.glVertex3f(i+offset1+1,j+offset2,0);
-       				offset1+=0.05;
+       				SetColor(gl,i,j,k2);
+       		       	gl.glBegin(GL2.GL_QUADS);
+       				gl.glVertex3f(i,j,0);
+       				gl.glVertex3f(i,j+1,0);
+       				gl.glVertex3f(i+1,j+1,0);
+       				gl.glVertex3f(i+1,j,0);
+       		       	gl.glEnd();   
+       		       	gl.glTranslatef(0.05f,0f, 0f);
        			}
-       			offset2+=0.05;
+       			gl.glTranslatef(0f,0.05f, 0f);
        		}
        		if (k<3)
-       			offset1+=3.2;
+       			gl.glTranslatef(3.2f,0f, 0f);
        		else if (k==3)
        		{       			
-       			offset1-=6.4;
-       			offset2-=3.2;
+       			gl.glTranslatef(-6.4f,-3.2f, 0f);
        		}
        		else
        		{       		
-       			offset2+=6.4;
+       			gl.glTranslatef(0f,6.4f,0f);
        		}
        	}
-       	gl.glEnd();
-                              
+       	
+        gl.glPopMatrix();
+        gl.glTranslatef(-1.5f, 1.5f, -20f);
+        gl.glRotatef(rot1,1f,0f,0f);
+        gl.glRotatef(rot2,0f,1f,0f);
+        gl.glRotatef(rot3,0f,0f,1f);
+                
+       	for(k=0;k<6;k++)
+       	{
+       		switch (k)
+       		{
+       			case 0: {k2=5; gl.glTranslatef(0f, 0f, 3.2f); gl.glRotatef(90.0f,0f,1f,0f); break;}
+       			case 1: {k2=0; gl.glTranslatef(0f, 0f, 0f); break;}
+       			case 2: {k2=4; gl.glTranslatef(3.2f, 0f, 0f); gl.glRotatef(-90.0f,0f,1f,0f); break;}
+       			case 3: {k2=2; gl.glTranslatef(3.2f, 0f, 3.2f); gl.glRotatef(180.0f,0f,1f,0f); break;}
+       			case 4: {k2=1; gl.glRotatef(90.0f,1f,0f,0f); gl.glTranslatef(0.4f, 0.2f, 0.2f); break;}
+       			case 5: {k2=3; gl.glRotatef(90.0f,1f,0f,0f); gl.glTranslatef(0.4f, 0.2f, -3f); break;}
+       		}
+       		gl.glTranslatef(0f,-0.15f,0f);
+       		for(j=0;j<3;j++)
+       		{
+       			gl.glTranslatef(-0.15f,0f, 0f);
+       			for(i=0;i<3;i++)
+       			{
+       				SetColor(gl,i,j,k2);
+       		       	gl.glBegin(GL2.GL_QUADS);
+       				gl.glVertex3f(i,j,0);
+       				gl.glVertex3f(i,j+1,0);
+       				gl.glVertex3f(i+1,j+1,0);
+       				gl.glVertex3f(i+1,j,0);
+       		       	gl.glEnd();   
+       		       	gl.glTranslatef(0.05f,0f, 0f);
+       			}
+       			gl.glTranslatef(0f,0.05f, 0f);
+       		}
+       		switch (k)
+       		{
+       			case 0: {gl.glRotatef(-90.0f,0f,1f,0f); gl.glTranslatef(.2f, 0f, -3f); break;}
+       			case 1: { gl.glTranslatef(-.15f, 0f, .2f);break;}
+       			case 2: {gl.glRotatef(90.0f,0f,1f,0f); gl.glTranslatef(-3.45f, 0f,-.2f); break;}
+       			case 3: {gl.glRotatef(180.0f,0f,1f,0f); gl.glTranslatef(-3.2f, 0f, -3.2f); break;}
+       			case 4: {gl.glTranslatef(-0.4f, -0.2f, -0.2f); gl.glRotatef(-90.0f,1f,0f,0f); break;}
+       		}
+       	}       	
+       	
+        gl.glColor3f(.2f,.2f,.2f);
+        for(i=0;i<3;i++)
+        {
+        	gl.glTranslatef(.32f,.32f, .52f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(0f,1.05f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(0f,1.05f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(1.15f,0f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(0f,-1.05f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(0f,-1.05f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(1.05f,0f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(0f,1.05f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(0f,1.05f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(-1.05f,-2.1f, 0f);
+        	gl.glTranslatef(-1.15f,2.1f, 0f);
+        	gl.glTranslatef(-.32f,-2.42f, .52f);
+        }
+       	
         rotateT += 0.2f; 
     }
  
@@ -122,8 +219,23 @@ public class JOGL_draw implements GLEventListener, KeyListener {
     }
  
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            exit();
+    	switch (e.getKeyCode())
+    	{
+    	  case KeyEvent.VK_ESCAPE: {exit(); break;}
+    	  case KeyEvent.VK_LEFT: {rot2-=10; break;}
+    	  case KeyEvent.VK_RIGHT: {rot2+=10; break;}
+    	  case KeyEvent.VK_UP: {rot1+=10; break;}
+    	  case KeyEvent.VK_DOWN: {rot1-=10; break;}
+    	  case KeyEvent.VK_ENTER:
+    	  {
+    		  int i,j,k;
+    	      int[] a={0,1,0,0,1,0,0,1,0,2,2,0,0,2,0,2,2,2,3,3,3,0,0,3,3,3,3,4,0,4,4,4,4,0,0,4,0,5,5,0,5,0,5,5,5,6,6,6,6,0,0,6,6,6};
+    	      for(k=0;k<6;k++)
+    	   		for(j=0;j<3;j++)
+    	   		 for(i=0;i<3;i++)
+    	   		  rubicsCube.cube[i][j][k]=a[i+3*j+9*k];    		  
+    		  break;
+    	  }
         }
     }
  
@@ -172,26 +284,40 @@ public class JOGL_draw implements GLEventListener, KeyListener {
     public void dispose(GLAutoDrawable gLDrawable) {
         // do nothing
     }
+    
+    void DrawCube(float size,GL2 gl)
+    {
+         gl.glBegin(GL2.GL_QUADS);
+         // левая грань
+         gl.glVertex3f( -size / 2, -size / 2, -size / 2); 
+         gl.glVertex3f( -size / 2,  size / 2, -size / 2);
+         gl.glVertex3f( -size / 2,  size / 2,  size / 2);
+         gl.glVertex3f( -size / 2, -size / 2,  size / 2);
+         // правая грань
+         gl.glVertex3f(  size / 2, -size / 2, -size / 2); 
+         gl.glVertex3f(  size / 2, -size / 2,  size / 2);
+         gl.glVertex3f(  size / 2,  size / 2,  size / 2);
+         gl.glVertex3f(  size / 2,  size / 2, -size / 2);
+         // нижняя грань
+         gl.glVertex3f( -size / 2, -size / 2, -size / 2); 
+         gl.glVertex3f( -size / 2, -size / 2,  size / 2);
+         gl.glVertex3f(  size / 2, -size / 2,  size / 2);
+         gl.glVertex3f(  size / 2, -size / 2, -size / 2);
+         // верхняя грань
+         gl.glVertex3f( -size / 2, size / 2, -size / 2); 
+         gl.glVertex3f( -size / 2, size / 2,  size / 2);
+         gl.glVertex3f(  size / 2, size / 2,  size / 2);
+         gl.glVertex3f(  size / 2, size / 2, -size / 2);
+         // задняя грань
+         gl.glVertex3f( -size / 2, -size / 2, -size / 2); 
+         gl.glVertex3f(  size / 2, -size / 2, -size / 2);
+         gl.glVertex3f(  size / 2,  size / 2, -size / 2);
+         gl.glVertex3f( -size / 2,  size / 2, -size / 2);
+         // передняя грань
+         gl.glVertex3f( -size / 2, -size / 2,  size / 2); 
+         gl.glVertex3f(  size / 2, -size / 2,  size / 2);
+         gl.glVertex3f(  size / 2,  size / 2,  size / 2);
+         gl.glVertex3f( -size / 2,  size / 2,  size / 2);
+         gl.glEnd();
+    }
 }
-/*
-              .,-:;//;:=,
-          . :H@@@MM@M#H/.,+%;,
-       ,/X+ +M@@M@MM%=,-%HMMM@X/,
-     -+@MM; $M@@MH+-,;XMMMM@MMMM@+-
-    ;@M@@M- XM@X;. -+XXXXXHHH@M@M#@/.
-  ,%MM@@MH ,@%=             .---=-=:=,.
-  =@#@@@MX.,                -%HX$$%%%:;
- =-./@M@M$                   .;@MMMM@MM:
- X@/ -$MM/                    . +MM@@@M$
-,@M@H: :@:                    . =X#@@@@-
-,@@@MMX, .                    /H- ;@M@M=
-.H@@@@M@+,                    %MM+..%#$.
- /MMMM@MMH/.                  XM@MH; =;
-  /%+%$XHH@$=              , .H@@@@MX,
-   .=--------.           -%H.,@@@@@MX,
-   .%MM@@@HHHXX$$$%+- .:$MMX =M@@MM%.
-     =XMMM@MM@MM#H;,-+HMM@M+ /MMMX=
-       =%@M@M#@$-.=$@MM@@@M; %M%=
-         ,:+$+-,/H#MMMMMMM@= =,
-               =++%%%%+/:-.
-*/
