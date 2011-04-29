@@ -1,0 +1,174 @@
+options{
+  JDK_VERSION = "1.6";
+  STATIC=false;
+  VISITOR=true;
+  MULTI=true;
+  NODE_DEFAULT_VOID=true;
+  NODE_EXTENDS="ru.nsu.ci.RubicNode";
+  UNICODE_INPUT = false;
+  JAVA_UNICODE_ESCAPE = true;
+  TRACK_TOKENS=true;
+}
+PARSER_BEGIN(SI)
+package ru.nsu.ci.translator;
+import java.io.PrintStream;
+import ru.nsu.ci.RubicVisitor;
+import ru.nsu.ci.translator.SI;
+import ru.nsu.ci.translator.ParseException;
+import ru.nsu.ci.translator.TokenMgrError;
+import java.io.*;
+import java.nio.charset.Charset;
+
+  public class SI
+   {
+    	public static void main(String[] args) throws ParseException, TokenMgrError, NumberFormatException
+    {
+	    ByteArrayInputStream is = new ByteArrayInputStream("повторить 5 заново\n раз\n".getBytes());
+	    SI si = new SI(is);
+       // SI si=new SI(System.in);
+        si.start();
+        RubicVisitor visitorC = new RubicVisitor(System.out);
+        si.rootNode().jjtAccept(visitorC,null);
+	}
+	
+     public Node rootNode()
+     {
+       return jjtree.rootNode();
+     }
+   /*   public static void main(String[] args)
+            throws ParseException, TokenMgrError, NumberFormatException
+            {
+              SI si=new SI(System.in);
+              si.start(System.out);
+            } */
+          }
+ PARSER_END(SI)
+/*
+ SKIP: {" "}
+ TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
+ TOKEN:{  <NUMBER : (["0"-"9"])+ >}
+ TOKEN:{  <POCH: "POCH" >}
+ TOKEN:{  <PRCH: "PRCH" >}
+ TOKEN:{  <TURN: "TURN" >}
+ TOKEN:{  <LETTER: "a" | "b" | "c">}
+ TOKEN:{  <MOV: "MOV" >}
+ TOKEN:{  <FOR: "FOR" >}
+ TOKEN:{  <END: "END" >}
+ TOKEN:{  <RESTART: "RESTART">}
+ TOKEN:{  <CANCEL: "CANCEL" >}
+ */
+
+ SKIP: {" "}
+ TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
+ TOKEN:{  <NUMBER : (["0"-"9"])+ >}
+ TOKEN:{  <POCH: "поЧасовой" >}
+ TOKEN:{  <PRCH: "прЧасовой" >}
+ TOKEN:{  <TURN: "повернуть" >}
+ TOKEN:{  <LETTER: "а" | "б" | "в">}
+ TOKEN:{  <MOV: "перейти" >}
+ TOKEN:{  <FOR: "повторить" >}
+ TOKEN:{  <END: "раз" >}
+ TOKEN:{  <RESTART: "заново">}
+ TOKEN:{  <CANCEL: "отменить" >}
+
+ 
+
+ 
+ void start() throws NumberFormatException:
+ {
+	Token t;
+ }
+ {
+   (
+     (
+       turn()
+     | 
+       mov()
+     | 
+       fore()
+     | 
+       cancel()
+     | 
+       restart()
+)
+<EOL>
+   )*
+  //<EOF>
+ }
+
+ void turn() throws NumberFormatException #turn:
+ {
+	Token t;
+	String lett;
+ }
+ {
+    <TURN> 
+     (
+       
+       (         Number() | t=<LETTER>
+       {
+         lett=t.image;
+         jjtThis.setLett(lett);        }
+      )
+      
+     (                
+         <POCH>
+       | 
+         <PRCH>
+     )
+     
+    ) }
+
+ void mov() throws NumberFormatException #mov:
+ {
+	Token t;
+ }
+ {
+    <MOV>
+     (       
+      Number()
+     ) }
+
+ void fore() throws NumberFormatException :
+ {
+	Token t;
+ }
+ {
+    <FOR>
+     (       
+      Number() #fore
+      start()
+     )
+    <END>
+ }
+
+
+  void cancel() throws NumberFormatException #cancel:
+ {
+	Token t;
+ }
+ {
+    <CANCEL>
+     (       
+       Number()
+     )
+ }
+
+ void restart() throws NumberFormatException #restart:
+ {
+	Token t;
+ }
+ {
+    <RESTART>
+ }
+ 
+ void Number ()  throws NumberFormatException #temp:
+{
+  Token t;
+  int num;}
+{         t= <NUMBER>
+       {  
+         num=Integer.parseInt(t.image);
+         jjtThis.setNum(num);
+       }
+}
