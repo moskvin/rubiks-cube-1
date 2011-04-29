@@ -16,6 +16,8 @@ import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.fixedfunc.GLLightingFunc;
 import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import javax.media.opengl.glu.GLU;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import com.jogamp.opengl.util.Animator;
  
@@ -153,12 +155,12 @@ public class JOGL_draw implements GLEventListener, KeyListener {
         System.exit(0);
     }
  
-    public static void main(String[] args) {
+    public static void main(String[] args, JPanel panel, JFrame frame) {
         canvas.addGLEventListener(new JOGL_draw());
-        frame.add(canvas);
-        frame.setSize(640, 480);
-        frame.setUndecorated(true);
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH);
+        panel.add(canvas);
+        canvas.setSize(400, 200);
+    /*    frame.setUndecorated(true);
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);*/
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 exit();

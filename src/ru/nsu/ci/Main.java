@@ -16,7 +16,7 @@ public class Main {
 		new MainFrame();
         SI si=new SI(System.in);
         si.start(System.out);
-    //    RubicVisitor visitorC = new RubicVisitor();
-    //    si.rootNode().jjtAccept(visitorC,null);
+      //  RubicVisitor visitorC = new RubicVisitor();
+      //  si.rootNode().jjtAccept(visitorC,null);
 	}
 }
