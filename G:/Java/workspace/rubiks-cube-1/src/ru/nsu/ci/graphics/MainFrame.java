@@ -2,6 +2,8 @@ package ru.nsu.ci.graphics;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.AttributedCharacterIterator.Attribute;
+import java.util.Map;
 
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.*;
@@ -13,6 +15,10 @@ public class MainFrame extends JFrame {
 	public MainFrame() throws HeadlessException {
 		
 		JFrame frame = new JFrame("Rubiks Cube Interpreter");
+		Color indigo = new Color(75,0,130);
+		Font MC = new Font("Monotype Corsiva",0,20);
+		Font MC2 = new Font("Monotype Corsiva",0,15);
+		Color darkViolet = new Color(66,49,137); 
 		JTextArea text = new JTextArea(5,5);
 		JPanel panelDraw = new JPanel();
 		JPanel panelControl = new JPanel();
@@ -58,9 +64,9 @@ public class MainFrame extends JFrame {
 		GBL.setConstraints(panelJOGL_draw, c);
 		frame.add(panelJOGL_draw);
 		
-		panelDraw.setBackground(Color.CYAN);
-		panelControl.setBackground(Color.CYAN);
-		panelJOGL_draw.setBackground(Color.red);
+		panelDraw.setBackground(indigo);
+		panelControl.setBackground(darkViolet);
+		panelJOGL_draw.setBackground(Color.BLACK);
 		
 		panelControl.setLayout(GBL);
 				
@@ -74,18 +80,24 @@ public class MainFrame extends JFrame {
 		scrollpane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		text.setWrapStyleWord(true);
+		text.setFont(MC);
 		text.setLineWrap(true);
 		GBL.setConstraints(scrollpane, c);
 		panelControl.add(scrollpane);
 		
 		c.weightx = 0.1; c.weighty = 0.1; 
 		
+		start.setFont(MC2);
+		save.setFont(MC2);
+		load.setFont(MC2);
+		exit.setFont(MC2);
+		
 		c.ipadx = 0;	c.ipady = 0;
 		c.gridx = 0;	c.gridy = 1;
 		c.gridheight = 1; c.gridwidth = 1; 
 		GBL.setConstraints(start, c);
 		panelControl.add(start);
-		
+
 		c.gridx = 1;	c.gridy = 1;
 		c.gridheight = 1; c.gridwidth = 1; 
 		GBL.setConstraints(save, c);
