@@ -61,11 +61,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	}
 	
 
-	@Override
-	public void choice(int side) {
-    		
-		
-	}
+	
 
 	@Override
 	public void init() {
