@@ -1,10 +1,10 @@
 package ru.nsu.ci.graphics;
 
+import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.AttributedCharacterIterator.Attribute;
 import java.util.Map;
-
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.*;
 
@@ -15,15 +15,19 @@ public class MainFrame extends JFrame {
 	public MainFrame() throws HeadlessException {
 		
 		JFrame frame = new JFrame("Rubiks Cube Interpreter");
+		
+		Color darkViolet = new Color(66,49,137); 
 		Color indigo = new Color(75,0,130);
 		Font MC = new Font("Monotype Corsiva",0,20);
 		Font MC2 = new Font("Monotype Corsiva",0,15);
-		Color darkViolet = new Color(66,49,137); 
-		JTextArea text = new JTextArea(5,5);
+		
+		JPanel panelJOGL_draw = new JPanel();
 		JPanel panelDraw = new JPanel();
 		JPanel panelControl = new JPanel();
+		
+		JTextArea text = new JTextArea(5,5);
 		JScrollPane scrollpane = new JScrollPane(text);
-		JPanel panelJOGL_draw = new JPanel();
+	
 		JButton start = new JButton("Старт");
 		JButton exit = new JButton("Выход");
 		JButton save = new JButton("Сохранить");
@@ -117,6 +121,9 @@ public class MainFrame extends JFrame {
 	    
 		animator.start();
 		canvas.requestFocus();
+		
+		ActionListener actionListener = new TestActionListener();
+		load.addActionListener(actionListener);
 		
 		frame.setVisible(true);
 		frame.pack();
