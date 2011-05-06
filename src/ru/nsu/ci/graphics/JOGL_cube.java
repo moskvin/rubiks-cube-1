@@ -52,7 +52,7 @@ import com.jogamp.opengl.util.Animator;
  
 import ru.nsu.ci.common.RubicsCube;
 
-public class JOGL_draw implements GLEventListener, KeyListener {
+public class JOGL_cube implements GLEventListener, KeyListener {
     float rotateT = 0.0f;
  
     static GLU glu = new GLU();
@@ -76,20 +76,21 @@ public class JOGL_draw implements GLEventListener, KeyListener {
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
         gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
-        
-        gl.glTranslatef(-18f, -5f, -25f);
-        gl.glRotatef(180.0f,1f,0f,0f);
-       	
+        gl.glTranslatef(-1.5f, 1.5f, -20f);
+        gl.glRotatef(rot1,1f,0f,0f);
+        gl.glRotatef(rot2,0f,1f,0f);
+        gl.glRotatef(rot3,0f,0f,1f);
+                
        	for(k=0;k<6;k++)
        	{
        		switch (k)
        		{
-       			case 0: {k2=5; break;}
-       			case 1: {k2=0; break;}
-       			case 2: {k2=4; break;}
-       			case 3: {k2=2; break;}
-       			case 4: {k2=1; break;}
-       			case 5: {k2=3; break;}
+       			case 0: {k2=5; gl.glTranslatef(0f, 0f, 3.2f); gl.glRotatef(90.0f,0f,1f,0f); break;}
+       			case 1: {k2=0; gl.glTranslatef(0f, 0f, 0f); break;}
+       			case 2: {k2=4; gl.glTranslatef(3.2f, 0f, 0f); gl.glRotatef(-90.0f,0f,1f,0f); break;}
+       			case 3: {k2=2; gl.glTranslatef(3.2f, 0f, 3.2f); gl.glRotatef(180.0f,0f,1f,0f); break;}
+       			case 4: {k2=1; gl.glRotatef(90.0f,1f,0f,0f); gl.glTranslatef(0.4f, 0.2f, 0.2f); break;}
+       			case 5: {k2=3; gl.glRotatef(90.0f,1f,0f,0f); gl.glTranslatef(0.4f, 0.2f, -3f); break;}
        		}
        		gl.glTranslatef(0f,-0.15f,0f);
        		for(j=0;j<3;j++)
@@ -108,17 +109,43 @@ public class JOGL_draw implements GLEventListener, KeyListener {
        			}
        			gl.glTranslatef(0f,0.05f, 0f);
        		}
-       		if (k<3)
-       			gl.glTranslatef(3.2f,0f, 0f);
-       		else if (k==3)
-       		{       			
-       			gl.glTranslatef(-6.4f,-3.2f, 0f);
+       		switch (k)
+       		{
+       			case 0: {gl.glRotatef(-90.0f,0f,1f,0f); gl.glTranslatef(.2f, 0f, -3f); break;}
+       			case 1: { gl.glTranslatef(-.15f, 0f, .2f);break;}
+       			case 2: {gl.glRotatef(90.0f,0f,1f,0f); gl.glTranslatef(-3.45f, 0f,-.2f); break;}
+       			case 3: {gl.glRotatef(180.0f,0f,1f,0f); gl.glTranslatef(-3.2f, 0f, -3.2f); break;}
+       			case 4: {gl.glTranslatef(-0.4f, -0.2f, -0.2f); gl.glRotatef(-90.0f,1f,0f,0f); break;}
        		}
-       		else
-       		{       		
-       			gl.glTranslatef(0f,6.4f,0f);
-       		}
-       	}
+       	}       	
+       	
+        gl.glColor3f(.2f,.2f,.2f);
+        for(i=0;i<3;i++)
+        {
+        	gl.glTranslatef(.32f,.32f, .52f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(0f,1.05f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(0f,1.05f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(1.15f,0f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(0f,-1.05f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(0f,-1.05f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(1.05f,0f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(0f,1.05f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(0f,1.05f, 0f);
+        	DrawCube(1,gl);
+        	gl.glTranslatef(-1.05f,-2.1f, 0f);
+        	gl.glTranslatef(-1.15f,2.1f, 0f);
+        	gl.glTranslatef(-.32f,-2.42f, .52f);
+        }
+       	
+        rotateT += 0.2f; 
     }
  
     public void displayChanged(GLAutoDrawable gLDrawable, boolean modeChanged, boolean deviceChanged) {
@@ -196,7 +223,7 @@ public class JOGL_draw implements GLEventListener, KeyListener {
     }
  
     public static void main(String[] args, JPanel panel, JFrame frame) {
-        canvas.addGLEventListener(new JOGL_draw());
+        canvas.addGLEventListener(new JOGL_cube());
         panel.add(canvas);
         canvas.setSize(400, 200);
     /*    frame.setUndecorated(true);
