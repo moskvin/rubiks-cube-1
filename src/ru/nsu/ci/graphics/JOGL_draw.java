@@ -77,7 +77,7 @@ public class JOGL_draw implements GLEventListener, KeyListener {
         gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
         
-        gl.glTranslatef(-18f, -5f, -25f);
+        gl.glTranslatef(-6f, 1.5f, -11f);
         gl.glRotatef(180.0f,1f,0f,0f);
        	
        	for(k=0;k<6;k++)
