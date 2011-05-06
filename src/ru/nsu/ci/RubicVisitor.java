@@ -1,22 +1,19 @@
 package ru.nsu.ci;
 
 import java.io.PrintStream;
-import java.util.ArrayList;
-import java.util.Deque;
-import ru.nsu.ci.RubicNode;
-import ru.nsu.ci.translator.ASTturn;
-import ru.nsu.ci.translator.ASTtunum;
-import ru.nsu.ci.translator.ASTg;
-import ru.nsu.ci.translator.ASTstart;
-import ru.nsu.ci.translator.ASTend;
-import ru.nsu.ci.translator.ASTtemp;
+
 import ru.nsu.ci.translator.ASTcancel;
+import ru.nsu.ci.translator.ASTend;
 import ru.nsu.ci.translator.ASTfore;
+import ru.nsu.ci.translator.ASTg;
 import ru.nsu.ci.translator.ASTmov;
 import ru.nsu.ci.translator.ASTrestart;
-import ru.nsu.ci.translator.Node;
-import ru.nsu.ci.translator.SimpleNode;
+import ru.nsu.ci.translator.ASTstart;
+import ru.nsu.ci.translator.ASTtemp;
+import ru.nsu.ci.translator.ASTtunum;
+import ru.nsu.ci.translator.ASTturn;
 import ru.nsu.ci.translator.SIVisitor;
+import ru.nsu.ci.translator.SimpleNode;
 //import ru.nsu.ci.translator.ASTtemp2;
 
 
