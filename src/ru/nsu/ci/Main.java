@@ -21,9 +21,6 @@ public class Main {
 	public static void main(String[] args) throws ParseException, TokenMgrError, NumberFormatException
 {		
 		new MainFrame();
-        SI si=new SI(System.in);
-        si.start();
-    //    RubicVisitor visitorC = new RubicVisitor();
-    //    si.rootNode().jjtAccept(visitorC,null);
 	}
 }
+
