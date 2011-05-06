@@ -14,6 +14,7 @@ import ru.nsu.ci.translator.ASTtunum;
 import ru.nsu.ci.translator.ASTturn;
 import ru.nsu.ci.translator.SIVisitor;
 import ru.nsu.ci.translator.SimpleNode;
+import ru.nsu.ci.translator.Node;
 //import ru.nsu.ci.translator.ASTtemp2;
 
 
@@ -49,6 +50,7 @@ public class RubicVisitor implements SIVisitor{
 		--indent;
 		num=node.getNum();
         lett=node.getLett();
+        
 	    return data;
 	        
 		}
@@ -101,9 +103,9 @@ public class RubicVisitor implements SIVisitor{
 		data = node.childrenAccept(this,data);
 		--indent;
         num=node.getNum();
-        
-      /*  if (num>6 || num <1)
-			 throw new NumStorError("Допустимое число от 1 до 6");	*/
+       // System.out.println("prishol = " + num);
+        if (num>6 || num <1)
+			 throw new NumStorError("Допустимое число от 1 до 6");	
 		return data;
 	}
 	
@@ -121,11 +123,11 @@ public class RubicVisitor implements SIVisitor{
 	    ++indent;
 		data = node.childrenAccept(this,data);
 		--indent;
-		//num=node.getNum();
+		num=node.getNum();
 		//System.out.println("prishol = " + num);
-        //Node n = node.jjtGetParent();
-        //RubicNode rn = (RubicNode)n;
-        //rn.setNum(num);
+		Node n = node.jjtGetParent();
+        RubicNode rn = (RubicNode)n;
+        rn.setNum(num);
 		return data;
 		}
 	
@@ -156,10 +158,11 @@ public class RubicVisitor implements SIVisitor{
 		++indent;
 		data = node.childrenAccept(this,data);
 		--indent;
-		int num=0;
+		int num=2;
 		num=node.getNum();
+		//System.out.println("prishol = " + num);
 		if (num>3 || num <1)
-			 throw new NumStorError("Допустимое число от 1 до 3");		
+			 throw new NumStorError("Допустимое число от 1 до 3");	
 	    return data;
 	}	
 }

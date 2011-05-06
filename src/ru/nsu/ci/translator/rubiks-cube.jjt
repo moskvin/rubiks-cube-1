@@ -23,7 +23,7 @@ import java.nio.charset.Charset;
    {
     	public static void main(String[] args) throws ParseException, TokenMgrError, NumberFormatException
     {
-	    ByteArrayInputStream is = new ByteArrayInputStream("повторить 5 заново перейти 3 повернуть 2 поЧасовой раз".getBytes());
+	    ByteArrayInputStream is = new ByteArrayInputStream("повторить 5 повторить 3 заново  перейти 6 раз повернуть 2 поЧасовой раз".getBytes());
 	    SI si = new SI(is);
        // SI si=new SI(System.in);
         si.start();
@@ -105,11 +105,7 @@ import java.nio.charset.Charset;
     <TURN> 
      (
        
-       (         Number() # tunum
-         | t=<LETTER>
-       {
-         lett=t.image;
-         jjtThis.setLett(lett);        }
+      (         Number() # tunum
       )
       
      (                
