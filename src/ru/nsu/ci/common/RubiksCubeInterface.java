@@ -4,8 +4,7 @@ package ru.nsu.ci.common;
  */
 public interface RubiksCubeInterface {
 	public void init(); //Инициализация массива
-	public void choice(int k );//Выбор фронтальной плоскости
-    public void turnGoriz(int k,int goriz);//Поворот по горизонтали 
+	public void turnGoriz(int k,int goriz);//Поворот по горизонтали 
     public void check();//Проверка на выигрыш
     public void save(String filename);//Сохранить
     public void load(String filename);//Загрузить

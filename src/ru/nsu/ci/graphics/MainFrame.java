@@ -117,13 +117,14 @@ public class MainFrame extends JFrame {
 		GBL.setConstraints(exit, c);
 		panelControl.add(exit);
 		
-	    JOGL_draw.main(null, panelJOGL_draw, frame);
+	   // JOGL_draw.main(null, panelJOGL_draw, frame);
+	  //  JOGL_cube.main(null, panelDraw, frame);
 	    
 		animator.start();
 		canvas.requestFocus();
 		
-		ActionListener actionListener = new TestActionListener();
-		load.addActionListener(actionListener);
+		//ActionListener actionListener = new TestActionListener();
+		//load.addActionListener(actionListener);
 		
 		frame.setVisible(true);
 		frame.pack();
