@@ -1,23 +1,45 @@
 package ru.nsu.ci.common;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PushbackInputStream;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
 public class RubicsCube implements  RubiksCubeInterface {
 	 private static Random random = new Random();
-	 Queue  queue = new ConcurrentLinkedQueue();
-	  
+	 Deque<Integer> deque = new ArrayDeque<Integer>();
+	 File file = new File("save.txt");
+		FileOutputStream fos; 		
+		DataOutputStream dos;
+		FileInputStream pos; 
+		DataInputStream kos;
+
 
 	public int [][][] cube =new int[3][3][6];
     int[] povorcube =new int [3];
 	@Override
 	public void abortStep(int step) {
-		// TODO Auto-generated method stub
+		int k;
+		int goriz;
+		if (step<11){
+		for (int l=0;l<step;l++){
+		turnGoriz(k=deque.pollFirst(),goriz=deque.pollFirst());	
+		}
+			
+		}
+		
+		
 		
 	}
 
-	@Override
+	
 	public void check() {
 	int flag=0;	
 	for(int k=0;k<6;k++){
@@ -39,11 +61,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	}
 	
 
-	@Override
-	public void choice(int side) {
-    		
-		
-	}
+	
 
 	@Override
 	public void init() {
@@ -55,35 +73,74 @@ public class RubicsCube implements  RubiksCubeInterface {
 			}			
 			}
 		
-		for (int l=0;l<6;l++){
-			int k=random.nextInt(5);
+		for (int l=0;l<18;l++){
+			int k=random.nextInt(6);
 			int goriz=random.nextInt(10)-5;
 			turnGoriz(k,goriz);
-		}
+			 
+			 }
 		
 	}
 
 	@Override
 	public void load(String filename) {
-		// TODO Auto-generated method stub
+	
+		try {
+			pos = new FileInputStream(file);
+			kos = new DataInputStream(pos);
+			for(int[][] subArray:cube)
+			{
+				for(int[] subsub:subArray)
+				{
+					for(int n:subsub)
+					{
+						 n =kos.readInt();
+						
+					
+						
+					}
+				}
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
+		
+	
 
 	@Override
 	public void save(String filename) {
-		// TODO Auto-generated method stub
+				try {
+			fos = new FileOutputStream(file);
+			dos = new DataOutputStream(fos);
+			for(int[][] subArray:cube)
+			{
+				for(int[] subsub:subArray)
+				{
+					for(int n:subsub)
+					{
+						dos.writeInt(n);
+					}
+				}
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 	}
 
 	@Override
-	public void saveStep(int k,int goriz) {
-	queue.offer(k);
-	
-	if (queue.size()>10){
-		
-	}
-		
-		
+	public void saveStep( int k,int goriz) {
+	  
+		deque.addFirst(goriz);
+		deque.addFirst(k);
+		if (deque.size()>20){
+			deque.pollLast();
+			deque.pollLast();
+		}
 		
 	}
 

@@ -2,9 +2,7 @@ package ru.nsu.ci;
 
 import ru.nsu.ci.RubicVisitor;
 import ru.nsu.ci.graphics.MainFrame;
-import ru.nsu.ci.translator.SI;
-import ru.nsu.ci.translator.ParseException;
-import ru.nsu.ci.translator.TokenMgrError;
+import ru.nsu.ci.translator.*;
 import java.io.*;
 import java.nio.charset.Charset;
 
