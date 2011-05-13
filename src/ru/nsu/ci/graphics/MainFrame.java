@@ -7,6 +7,10 @@ import java.text.AttributedCharacterIterator.Attribute;
 import java.util.Map;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.*;
+import ru.nsu.ci.translator.ParseException;
+import ru.nsu.ci.translator.TokenMgrError;
+import ru.nsu.ci.translator.SI;
+import ru.nsu.ci.NumStorError;
 
 import com.jogamp.opengl.util.Animator;
 
@@ -122,8 +126,8 @@ public class MainFrame extends JFrame {
 		c.gridx = 1;	c.gridy = 2;
 		c.gridheight = 1; c.gridwidth = 1; 
 		GBL.setConstraints(exit, c);
-		panelControl.add(exit);
-						
+		panelControl.add(exit);		
+		
 	    JOGL_draw.main(null, panelJOGL_draw, frame);
 	    JOGL_cube.main(null, panelDraw, frame);
 	    
@@ -188,7 +192,20 @@ public class MainFrame extends JFrame {
 						}
 						else
 							if (e.getActionCommand().equals("Запустить")){
-								
+								try {									
+									SI.main(null,text.getText());									
+								}catch(NumStorError error){	
+									/*String s = error.getMessage();									
+									int i=0;
+									while(s[i]!="\0"){										
+									
+									}*/
+									JOptionPane.showMessageDialog(null, error.getMessage());
+								}catch(ParseException message){		
+									JOptionPane.showMessageDialog(null, message.getMessage());
+								}catch(TokenMgrError  message){	
+									JOptionPane.showMessageDialog(null, message.getMessage());
+								}
 							}
 							else
 								if (e.getActionCommand().equals("Новая игра")){

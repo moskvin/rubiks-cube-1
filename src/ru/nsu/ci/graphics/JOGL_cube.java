@@ -280,7 +280,11 @@ public class JOGL_cube implements GLEventListener, KeyListener, MouseListener, M
     public static void main(String[] args, JPanel panel, JFrame frame) {
         canvas.addGLEventListener(new JOGL_cube());
         panel.add(canvas);
+
         canvas.setSize(400, 200);
+
+
+
         rubicsCube.init();
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {

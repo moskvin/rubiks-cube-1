@@ -212,8 +212,7 @@ public class JOGL_draw implements GLEventListener, KeyListener {
         panel.add(canvas);
         canvas.setSize(400, 200);
         JOGL_cube.rubicsCube.init();
-    /*    frame.setUndecorated(true);
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH);*/
+
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 exit();
