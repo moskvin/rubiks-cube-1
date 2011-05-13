@@ -1,7 +1,4 @@
 package ru.nsu.ci.common;
-/**
- * Здесь вы должны поместить ваш интерфейс!
- */
 public interface RubiksCubeInterface {
 	public void init(); //Инициализация массива
 	public void turnGoriz(int k,int goriz);//Поворот по горизонтали 
