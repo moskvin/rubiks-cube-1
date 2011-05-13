@@ -44,11 +44,14 @@ public class RubicVisitor implements SIVisitor {
 
 	public Object visit(ASTturn node, Object data) {
 		int num;
+		int num1;
 		/*printStream.println(identString() + node);
 		++indent;
 		data = node.childrenAccept(this, data);
 		--indent;*/
 		num = node.getNum();
+		num1 = node.getNum1();
+	    rubiccube.turnGoriz(num, num1);
 		return data;
 
 	}
@@ -60,6 +63,7 @@ public class RubicVisitor implements SIVisitor {
 		data = node.childrenAccept(this, data);
 		--indent;*/
 		num = node.getNum();
+		rubiccube.abortStep(num);
 		return data;
 	}
 
@@ -83,7 +87,6 @@ public class RubicVisitor implements SIVisitor {
 		++indent;
 		--indent;*/
 		data = node.childrenAccept(this, data);
-		
 		return data;
 
 	}
@@ -93,6 +96,7 @@ public class RubicVisitor implements SIVisitor {
 		++indent;
 		--indent;*/
 		data = node.childrenAccept(this, data);
+		rubiccube.restart();
 		return data;
 	}
 
