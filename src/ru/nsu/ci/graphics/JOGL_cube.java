@@ -38,37 +38,51 @@ import java.awt.event.WindowEvent;
 
 import javax.media.opengl.GL;
 import javax.media.opengl.GL2;
+import javax.media.opengl.glu.GLU;
 import javax.media.opengl.GL2ES1;
 import javax.media.opengl.GLAutoDrawable;
 import javax.media.opengl.GLEventListener;
 import javax.media.opengl.awt.GLCanvas;
 import javax.media.opengl.fixedfunc.GLLightingFunc;
 import javax.media.opengl.fixedfunc.GLMatrixFunc;
-import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import com.jogamp.opengl.util.Animator;
- 
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import ru.nsu.ci.common.RubicsCube;
 
-public class JOGL_cube implements GLEventListener, KeyListener {
+public class JOGL_cube implements GLEventListener, KeyListener, MouseListener, MouseMotionListener {
     float rotateT = 0.0f;
  
     static GLU glu = new GLU();
- 
+ //
     static GLCanvas canvas = new GLCanvas();
  
     static Frame frame = new Frame("Rubik's Cube");
  
     static Animator animator = new Animator(canvas); 
     
-    RubicsCube rubicsCube = new RubicsCube();
+    public static RubicsCube rubicsCube = new RubicsCube();
     
     float rot1=180f;
     float rot2=0;
     float rot3=0;
+    float rot[]=new float[6];
+            
+    int x0,y0;
     
+    boolean bPressed=false;
+    
+    public JOGL_cube() {
+    	canvas.addGLEventListener(this);
+    	canvas.addKeyListener(this);
+    	canvas.addMouseListener(this);
+    	canvas.addMouseMotionListener(this);
+	}
+
     public void display(GLAutoDrawable gLDrawable) {
         final GL2 gl = gLDrawable.getGL().getGL2();
         int i,j,k,k2=0;
@@ -76,49 +90,49 @@ public class JOGL_cube implements GLEventListener, KeyListener {
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
         gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
-        gl.glTranslatef(-1.5f, 1.5f, -20f);
+        gl.glTranslatef(-1.5f, 1.5f, -8f);
         gl.glRotatef(rot1,1f,0f,0f);
         gl.glRotatef(rot2,0f,1f,0f);
         gl.glRotatef(rot3,0f,0f,1f);
-                
-       	for(k=0;k<6;k++)
-       	{
-       		switch (k)
-       		{
-       			case 0: {k2=5; gl.glTranslatef(0f, 0f, 3.2f); gl.glRotatef(90.0f,0f,1f,0f); break;}
-       			case 1: {k2=0; gl.glTranslatef(0f, 0f, 0f); break;}
-       			case 2: {k2=4; gl.glTranslatef(3.2f, 0f, 0f); gl.glRotatef(-90.0f,0f,1f,0f); break;}
-       			case 3: {k2=2; gl.glTranslatef(3.2f, 0f, 3.2f); gl.glRotatef(180.0f,0f,1f,0f); break;}
-       			case 4: {k2=1; gl.glRotatef(90.0f,1f,0f,0f); gl.glTranslatef(0.4f, 0.2f, 0.2f); break;}
-       			case 5: {k2=3; gl.glRotatef(90.0f,1f,0f,0f); gl.glTranslatef(0.4f, 0.2f, -3f); break;}
-       		}
-       		gl.glTranslatef(0f,-0.15f,0f);
-       		for(j=0;j<3;j++)
-       		{
-       			gl.glTranslatef(-0.15f,0f, 0f);
-       			for(i=0;i<3;i++)
-       			{
-       				SetColor(gl,i,j,k2);
-       		       	gl.glBegin(GL2.GL_QUADS);
-       				gl.glVertex3f(i,j,0);
-       				gl.glVertex3f(i,j+1,0);
-       				gl.glVertex3f(i+1,j+1,0);
-       				gl.glVertex3f(i+1,j,0);
-       		       	gl.glEnd();   
-       		       	gl.glTranslatef(0.05f,0f, 0f);
-       			}
-       			gl.glTranslatef(0f,0.05f, 0f);
-       		}
-       		switch (k)
-       		{
-       			case 0: {gl.glRotatef(-90.0f,0f,1f,0f); gl.glTranslatef(.2f, 0f, -3f); break;}
-       			case 1: { gl.glTranslatef(-.15f, 0f, .2f);break;}
-       			case 2: {gl.glRotatef(90.0f,0f,1f,0f); gl.glTranslatef(-3.45f, 0f,-.2f); break;}
-       			case 3: {gl.glRotatef(180.0f,0f,1f,0f); gl.glTranslatef(-3.2f, 0f, -3.2f); break;}
-       			case 4: {gl.glTranslatef(-0.4f, -0.2f, -0.2f); gl.glRotatef(-90.0f,1f,0f,0f); break;}
-       		}
-       	}       	
-       	
+        glu.gluLookAt(1,0,0,0,0,-8,0,1,0);               
+        for(k=0;k<6;k++)
+        {
+        	switch (k)
+        	{
+        		case 0: {k2=5; gl.glTranslatef(0f, 0f, 3.2f); gl.glRotatef(90.0f,0f,1f,0f); break;}
+        		case 1: {k2=0; gl.glTranslatef(0f, 0f, 0f); break;}
+        		case 2: {k2=4; gl.glTranslatef(3.2f, 0f, 0f); gl.glRotatef(-90.0f,0f,1f,0f); break;}
+        		case 3: {k2=2; gl.glTranslatef(3.2f, 0f, 3.2f); gl.glRotatef(180.0f,0f,1f,0f); break;}
+        		case 4: {k2=1; gl.glRotatef(90.0f,1f,0f,0f); gl.glRotatef(-180.0f,1f,0f,0f); gl.glTranslatef(.42f,-3.14f, -0.13f); break;}
+        		case 5: {k2=3; gl.glRotatef(90.0f,1f,0f,0f); gl.glTranslatef(0.4f, 0.2f, -3f); break;}
+        	}
+        	gl.glTranslatef(0f,-0.15f,0f);
+        	for(j=0;j<3;j++)
+        	{
+        		gl.glTranslatef(-0.15f,0f, 0f);
+        		for(i=0;i<3;i++)
+        		{
+        			SetColor(gl,i,j,k2);
+        			gl.glBegin(GL2.GL_QUADS);
+        			gl.glVertex3f(i,j,0);
+        			gl.glVertex3f(i,j+1,0);
+        			gl.glVertex3f(i+1,j+1,0);
+        			gl.glVertex3f(i+1,j,0);
+        			gl.glEnd();
+        			gl.glTranslatef(0.05f,0f, 0f);
+        		}
+        		gl.glTranslatef(0f,0.05f, 0f);
+        	}
+        	switch (k)
+        	{
+        		case 0: {gl.glRotatef(-90.0f,0f,1f,0f); gl.glTranslatef(.2f, 0f, -3f); break;}
+        		case 1: {gl.glTranslatef(-.15f, 0f, .2f);break;}
+        		case 2: {gl.glRotatef(90.0f,0f,1f,0f); gl.glTranslatef(-3.45f, 0f,-.2f); break;}
+        		case 3: {gl.glRotatef(180.0f,0f,1f,0f); gl.glTranslatef(-3.2f, 0f, -3.2f); break;}
+        		case 4: {gl.glTranslatef(-.42f, 3.14f, 0.13f); gl.glRotatef(180.0f,1f,0f,0f); gl.glRotatef(-90.0f,1f,0f,0f); break;}
+        	}
+        }
+       
         gl.glColor3f(.2f,.2f,.2f);
         for(i=0;i<3;i++)
         {
@@ -144,13 +158,22 @@ public class JOGL_cube implements GLEventListener, KeyListener {
         	gl.glTranslatef(-1.15f,2.1f, 0f);
         	gl.glTranslatef(-.32f,-2.42f, .52f);
         }
-       	
-        rotateT += 0.2f; 
+        rotateT += 0.2f;
     }
- 
     public void displayChanged(GLAutoDrawable gLDrawable, boolean modeChanged, boolean deviceChanged) {
+    	
     }
  
+    public void DrawPlane(GL2 gl,int i,int j,int k2)
+    {  
+    	SetColor(gl,i,j,k2);
+	    gl.glBegin(GL2.GL_QUADS);
+		gl.glVertex3f(i,j,0);
+		gl.glVertex3f(i,j+1,0);
+		gl.glVertex3f(i+1,j+1,0);
+		gl.glVertex3f(i+1,j,0);
+	   	gl.glEnd(); 
+    }
     public void init(GLAutoDrawable gLDrawable) {
         GL2 gl = gLDrawable.getGL().getGL2();
         gl.glShadeModel(GLLightingFunc.GL_SMOOTH);
@@ -160,8 +183,29 @@ public class JOGL_cube implements GLEventListener, KeyListener {
         gl.glDepthFunc(GL.GL_LEQUAL);
         gl.glHint(GL2ES1.GL_PERSPECTIVE_CORRECTION_HINT, GL.GL_NICEST);
         ((Component) gLDrawable).addKeyListener(this);
+        rot[0]=0;
+        rot[1]=0;
+        rot[2]=0;
+        x0=-100500;
+        y0=-100500;
     }
- 
+
+    public void mouseDragged (MouseEvent event) 
+    {
+    	int x=event.getX();
+    	int y=event.getY();
+    	if (x0==-100500)
+    		x0=x;
+    	if (y0==-100500)
+    		y0=y;
+    	int dx=x-x0;
+    	int dy=y-y0;
+    	rot1+=dy;
+    	rot2-=dx;
+    	y0=y;
+    	x0=x;
+    }
+    
     public void reshape(GLAutoDrawable gLDrawable, int x, int y, int width, int height) {
         GL2 gl = gLDrawable.getGL().getGL2();
         if (height <= 0) {
@@ -191,8 +235,19 @@ public class JOGL_cube implements GLEventListener, KeyListener {
     	   		for(j=0;j<3;j++)
     	   		 for(i=0;i<3;i++)
     	   		  rubicsCube.cube[i][j][k]=a[i+3*j+9*k];    		  
-    		  break;
+    		  break;    		 
     	  }
+    	  case KeyEvent.VK_1:
+    	    { rubicsCube.turnGoriz(0,1);
+  	   			 	break;} 
+    	  case KeyEvent.VK_2:
+  	    { 
+    	    int i,j,k;
+	      		for(k=0;k<1;k++)
+	      			for(j=0;j<1;j++)
+	      				for(i=0;i<1;i++)
+	      					System.out.printf("%f",rubicsCube.cube[i][j][k]*1.0);
+   			 	break;} 
         }
     }
  
@@ -225,9 +280,14 @@ public class JOGL_cube implements GLEventListener, KeyListener {
     public static void main(String[] args, JPanel panel, JFrame frame) {
         canvas.addGLEventListener(new JOGL_cube());
         panel.add(canvas);
+<<<<<<< HEAD
+        canvas.setSize(400, 200);
+        rubicsCube.init();
+=======
         canvas.setSize(400, 400);
     /*    frame.setUndecorated(true);
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);*/
+>>>>>>> 92c40f3ab40374fa19c99308270b766a88718616
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 exit();
@@ -237,7 +297,7 @@ public class JOGL_cube implements GLEventListener, KeyListener {
         animator.start();
         canvas.requestFocus();
     }
- 
+
     public void dispose(GLAutoDrawable gLDrawable) {
         // do nothing
     }
@@ -277,4 +337,39 @@ public class JOGL_cube implements GLEventListener, KeyListener {
          gl.glVertex3f( -size / 2,  size / 2,  size / 2);
          gl.glEnd();
     }
+
+	public void mouseMoved(MouseEvent arg0) {		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		x0=arg0.getX();
+		y0=arg0.getY();
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
