@@ -12,6 +12,8 @@ import java.util.Deque;
 import java.util.Queue;
 import java.util.Random;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+import ru.nsu.ci.NumStorError;
 public class RubicsCube implements  RubiksCubeInterface {
 	 private static Random random = new Random();
 	 Deque<Integer> deque = new ArrayDeque<Integer>();
@@ -29,9 +31,18 @@ public class RubicsCube implements  RubiksCubeInterface {
 	public void abortStep(int step) {
 		int k;
 		int goriz;
-		if (step<11){
+		
+		if ((2*step>deque.size())||(deque.isEmpty())){
+			throw new NumStorError("Значение больше допустимого");
+		}
+		else
+		{
 		for (int l=0;l<step;l++){
-		turnGoriz(k=deque.pollFirst(),goriz=deque.pollFirst());	
+		turnGoriz(k=deque.pollFirst(),goriz=deque.pollFirst()*(-1));
+		deque.removeFirst();
+		deque.removeFirst();
+				
+		
 		}
 			
 		}
@@ -57,7 +68,8 @@ public class RubicsCube implements  RubiksCubeInterface {
 		
 	}
 	}
-	if (flag==54){//победа
+	if (flag==54){
+		throw new NumStorError("Поздравляем победа!!!");
 		
 		}
 	}
@@ -75,12 +87,12 @@ public class RubicsCube implements  RubiksCubeInterface {
 			}			
 			}
 		
-		/*for (int l=0;l<18;l++){
+		for (int l=0;l<18;l++){
 			int k=random.nextInt(6);
 			int goriz=random.nextInt(10)-5;
-			turnGoriz(k,goriz);
-			 
-			 }*/
+			turnGoriz(k,goriz);			
+			 }
+		deque.clear();		
 		restart();
 		
 		

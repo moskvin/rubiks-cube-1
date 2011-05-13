@@ -12,7 +12,7 @@ import javax.swing.*;
 import ru.nsu.ci.translator.ParseException;
 import ru.nsu.ci.translator.TokenMgrError;
 import ru.nsu.ci.translator.SI;
-import ru.nsu.ci.EncodingTest;
+
 import ru.nsu.ci.NumStorError;
 
 import com.jogamp.opengl.util.Animator;
@@ -202,7 +202,8 @@ public class MainFrame extends JFrame {
 						}
 						else
 							if (e.getActionCommand().equals("Запустить")){
-								try {									
+								try {	
+									JOGL_cube.rubicsCube.restart();
 									SI.main(null,text.getText());									
 								}catch(NumStorError error){										
 								/*	s.replace("\u043f\u043e\u0427\u0430\u0441\u043e\u0432\u043e\u0439", "поЧасовой");
@@ -221,7 +222,8 @@ public class MainFrame extends JFrame {
 							}
 							else
 								if (e.getActionCommand().equals("Новая игра")){
-									 JOGL_cube.rubicsCube.delsavefile();
+									JOGL_cube.rubicsCube.init(); 
+									JOGL_cube.rubicsCube.delsavefile();
 									
 								}
 								else
