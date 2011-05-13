@@ -281,7 +281,7 @@ public class JOGL_cube implements GLEventListener, KeyListener, MouseListener, M
         canvas.addGLEventListener(new JOGL_cube());
         panel.add(canvas);
 
-        canvas.setSize(400, 200);
+        canvas.setSize(400, 400);
 
 
 
