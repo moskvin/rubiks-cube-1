@@ -90,9 +90,15 @@ public class RubicsCube implements  RubiksCubeInterface {
 		for (int l=0;l<18;l++){
 			int k=random.nextInt(6);
 			int goriz=random.nextInt(10)-5;
+<<<<<<< HEAD
 			turnGoriz(k,goriz);			
 			 }
 		deque.clear();		
+=======
+			turnGoriz(k,goriz);
+			 
+			 }
+>>>>>>> 980d1ccc50b8abe07b1924a6e47165b6cbc33a50
 		restart();
 		
 		
