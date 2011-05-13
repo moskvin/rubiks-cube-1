@@ -10,5 +10,6 @@ public interface RubiksCubeInterface {
     public void load(String filename);//Загрузить
     public void abortStep(int step);//Отмена ходов 
     public void saveStep(int k,int goriz);//Сохранение ходов 
+	public void restart();//заново.
 	
 }
