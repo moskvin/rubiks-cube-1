@@ -42,6 +42,7 @@ import ru.nsu.ci.common.RubicsCube;
               si.start(System.out);
             } */
           }
+          
  PARSER_END(SI)
 /*
  SKIP: {" "}
@@ -56,7 +57,11 @@ import ru.nsu.ci.common.RubicsCube;
  TOKEN:{  <END: "END" >}
  TOKEN:{  <RESTART: "RESTART">}
  TOKEN:{  <CANCEL: "CANCEL" >}
- */
+
+
+
+
+
 
  SKIP: {" "}
  TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
@@ -68,6 +73,19 @@ import ru.nsu.ci.common.RubicsCube;
  TOKEN:{  <END: "раз" >}
  TOKEN:{  <RESTART: "заново">}
  TOKEN:{  <CANCEL: "отменить" >}
+ 
+ */
+
+ SKIP: {" "}
+ TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
+ TOKEN:{  <NUMBER : (["0"-"9"])+ >}
+ TOKEN:{  <POCH: "\u043f\u043e\u0427\u0430\u0441\u043e\u0432\u043e\u0439" >}
+ TOKEN:{  <PRCH: "\u043f\u0440\u0427\u0430\u0441\u043e\u0432\u043e\u0439" >}
+ TOKEN:{  <TURN: "\u043f\u043e\u0432\u0435\u0440\u043d\u0443\u0442\u044c" >}
+ TOKEN:{  <FOR: "\u043f\u043e\u0432\u0442\u043e\u0440\u0438\u0442\u044c" >}
+ TOKEN:{  <END: "\u0440\u0430\u0437" >}
+ TOKEN:{  <RESTART: "\u0437\u0430\u043d\u043e\u0432\u043e">}
+ TOKEN:{  <CANCEL: "\u043e\u0442\u043c\u0435\u043d\u0438\u0442\u044c" >}
 
  
 

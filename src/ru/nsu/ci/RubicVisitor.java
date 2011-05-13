@@ -96,6 +96,7 @@ public class RubicVisitor implements SIVisitor {
 		++indent;
 		--indent;*/
 		data = node.childrenAccept(this, data);
+		rubiccube.restart();
 		return data;
 	}
 
