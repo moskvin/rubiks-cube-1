@@ -75,12 +75,12 @@ public class RubicsCube implements  RubiksCubeInterface {
 			}			
 			}
 		
-		/*for (int l=0;l<18;l++){
+		for (int l=0;l<18;l++){
 			int k=random.nextInt(6);
 			int goriz=random.nextInt(10)-5;
 			turnGoriz(k,goriz);
 			 
-			 }*/
+			 }
 		restart();
 		
 		
