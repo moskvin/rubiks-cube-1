@@ -11,5 +11,8 @@ public interface RubiksCubeInterface {
     public void abortStep(int step);//Отмена ходов 
     public void saveStep(int k,int goriz);//Сохранение ходов 
 	public void restart();//заново.
+	public void delsavefile();//удаляем сэйвы 
+	public void delrestartfile();//удаляем "заново" 
+	
 	
 }

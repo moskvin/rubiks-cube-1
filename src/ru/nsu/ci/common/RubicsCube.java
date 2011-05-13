@@ -167,7 +167,18 @@ public class RubicsCube implements  RubiksCubeInterface {
 		}
 		
 	}
+	public void delsavefile(){
+	if	(save.exists()){
+		save.delete();
 		
+	}
+	}	
+	public void delrestartfile(){
+		if	(restart.exists()){
+			restart.delete();
+			
+		}
+		}	
 		
 		
 		
