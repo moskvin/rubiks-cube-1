@@ -12,7 +12,7 @@ import javax.swing.*;
 import ru.nsu.ci.translator.ParseException;
 import ru.nsu.ci.translator.TokenMgrError;
 import ru.nsu.ci.translator.SI;
-import ru.nsu.ci.EncodingTest;
+
 import ru.nsu.ci.NumStorError;
 
 import com.jogamp.opengl.util.Animator;
@@ -226,7 +226,8 @@ public class MainFrame extends JFrame {
 						}
 						else
 							if (e.getActionCommand().equals("Запустить")){
-								try {									
+								try {	
+									JOGL_cube.rubicsCube.restart();
 									SI.main(null,text.getText());									
 								}catch(NumStorError error){										
 									JOptionPane.showMessageDialog(null, filter(error.getMessage()),"Ошибка",JOptionPane.WARNING_MESSAGE);
@@ -238,7 +239,11 @@ public class MainFrame extends JFrame {
 							}
 							else
 								if (e.getActionCommand().equals("Новая игра")){
+<<<<<<< HEAD
+									JOGL_cube.rubicsCube.init(); 
+=======
 									JOGL_cube.rubicsCube.init();
+>>>>>>> 980d1ccc50b8abe07b1924a6e47165b6cbc33a50
 									JOGL_cube.rubicsCube.delsavefile();
 									
 								}

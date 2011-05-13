@@ -127,12 +127,12 @@ import ru.nsu.ci.graphics.JOGL_cube;
       (                       
          <POCH>
          {          
-          num1=-1;
+          num1=1;
           jjtThis.setNum1(num1);         }
        | 
          <PRCH>
          {          
-          num1=1;
+          num1=-1;
           jjtThis.setNum1(num1);
          }
        )

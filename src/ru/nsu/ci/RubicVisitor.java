@@ -148,7 +148,7 @@ public class RubicVisitor implements SIVisitor {
 		Node n = node.jjtGetParent();
 		RubicNode rn = (RubicNode) n;
 		rn.setNum(num);
-		System.out.println("prishol = " + num);
+		//System.out.println("prishol = " + num);
 		if (num > 5 || num < 0)
 			throw new NumStorError("Допустимое число от 0 до 5");
 		return data;
