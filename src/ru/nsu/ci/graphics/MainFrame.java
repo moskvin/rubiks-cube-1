@@ -40,7 +40,7 @@ public class MainFrame extends JFrame {
 		JButton save = new JButton("Сохранить");
 		JButton load = new JButton("Загрузить");
 		JButton newgame = new JButton("Новая игра");
-		JButton help = new JButton("Помощь");
+		JButton help = new JButton("  Помощь  ");
 		
 		GLCanvas canvas = new GLCanvas();
 		Animator animator = new Animator(canvas);
@@ -225,8 +225,9 @@ public class MainFrame extends JFrame {
 									
 								}
 								else
-									if (e.getActionCommand().equals("Помощь")){
-																														
+									if (e.getActionCommand().equals("  Помощь  ")){
+										String s= "";
+										JOptionPane.showMessageDialog(null,s,"Помощь",JOptionPane.INFORMATION_MESSAGE);																														
 									}				
 			}
 		};
