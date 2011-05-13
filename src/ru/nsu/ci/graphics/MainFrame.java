@@ -239,11 +239,11 @@ public class MainFrame extends JFrame {
 							}
 							else
 								if (e.getActionCommand().equals("Новая игра")){
-<<<<<<< HEAD
-									JOGL_cube.rubicsCube.init(); 
-=======
+
+									
+
 									JOGL_cube.rubicsCube.init();
->>>>>>> 980d1ccc50b8abe07b1924a6e47165b6cbc33a50
+
 									JOGL_cube.rubicsCube.delsavefile();
 									
 								}
