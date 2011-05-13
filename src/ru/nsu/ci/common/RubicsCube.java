@@ -58,6 +58,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	}
 	}
 	if (flag==54){//победа
+		
 		}
 	}
 	
@@ -74,12 +75,12 @@ public class RubicsCube implements  RubiksCubeInterface {
 			}			
 			}
 		
-		for (int l=0;l<18;l++){
+		/*for (int l=0;l<18;l++){
 			int k=random.nextInt(6);
 			int goriz=random.nextInt(10)-5;
 			turnGoriz(k,goriz);
 			 
-			 }
+			 }*/
 		restart();
 		
 		
@@ -271,10 +272,10 @@ public class RubicsCube implements  RubiksCubeInterface {
 	{
 		for (l=0;l<2;l++)
 		{
-			cube[l][0][k]=cube[0][2-l][k];
-			cube[0][2-l][k]=cube[2-l][2][k];
-			cube[2-l][2][k]=cube[2][l][k];
-			cube[2][l][k]=povorcube[l];
+			cube[0][l][k]=cube[l][2][k];
+			cube[l][2][k]=cube[2][2-l][k];
+			cube[2][2-l][k]=cube[2-l][0][k];
+			cube[2-l][0][k]=povorcube[l];
 		}
 		switch(k){
 		case 0 :

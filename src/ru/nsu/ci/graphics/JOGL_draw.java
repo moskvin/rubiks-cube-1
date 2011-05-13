@@ -48,6 +48,7 @@ import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.util.Random;
+import ru.nsu.ci.graphics.JOGL_cube;
 
 import com.jogamp.opengl.util.Animator;
  
@@ -98,7 +99,7 @@ public class JOGL_draw implements GLEventListener, KeyListener {
        			gl.glTranslatef(-0.15f,0f, 0f);
        			for(i=0;i<3;i++)
        			{
-       				SetColor(gl,i,j,k2);
+       				SetColor(gl,j,i,k2);
        		       	gl.glBegin(GL2.GL_QUADS);
        				gl.glVertex3f(i,j,0);
        				gl.glVertex3f(i,j+1,0);

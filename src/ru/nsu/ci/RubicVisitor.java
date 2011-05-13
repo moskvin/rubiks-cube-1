@@ -53,6 +53,8 @@ public class RubicVisitor implements SIVisitor {
 
 		num = node.getNum();
 		num1 = node.getNum1();
+		System.out.println("prishol = " + num);
+		System.out.println("prishol = " + num1);
 	    rubiccube.turnGoriz(num, num1);
 		return data;
 
@@ -64,7 +66,6 @@ public class RubicVisitor implements SIVisitor {
 		++indent;
 		--indent;*/
 		data = node.childrenAccept(this, data);
-
 		num = node.getNum();
 		rubiccube.abortStep(num);
 		return data;
@@ -140,11 +141,16 @@ public class RubicVisitor implements SIVisitor {
 		--indent;
 		// System.out.println("prishol = " + num);
 	*/
+		
 		data = node.childrenAccept(this, data);
 		int num = node.getNum();
+		num = node.getNum();
+		Node n = node.jjtGetParent();
+		RubicNode rn = (RubicNode) n;
+		rn.setNum(num);
 		System.out.println("prishol = " + num);
-		if (num > 6 || num < 1)
-			throw new NumStorError("Допустимое число от 1 до 6");
+		if (num > 5 || num < 0)
+			throw new NumStorError("Допустимое число от 0 до 5");
 		return data;
 	}
 }

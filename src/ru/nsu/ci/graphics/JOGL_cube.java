@@ -53,7 +53,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import ru.nsu.ci.common.RubicsCube;
-
 public class JOGL_cube implements GLEventListener, KeyListener, MouseListener, MouseMotionListener {
     float rotateT = 0.0f;
  
@@ -112,7 +111,7 @@ public class JOGL_cube implements GLEventListener, KeyListener, MouseListener, M
         		gl.glTranslatef(-0.15f,0f, 0f);
         		for(i=0;i<3;i++)
         		{
-        			SetColor(gl,i,j,k2);
+        			SetColor(gl,j,i,k2);
         			gl.glBegin(GL2.GL_QUADS);
         			gl.glVertex3f(i,j,0);
         			gl.glVertex3f(i,j+1,0);
