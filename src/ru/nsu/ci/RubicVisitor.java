@@ -143,8 +143,8 @@ public class RubicVisitor implements SIVisitor {
 		data = node.childrenAccept(this, data);
 		int num = node.getNum();
 		System.out.println("prishol = " + num);
-		if (num > 6 || num < 1)
-			throw new NumStorError("Допустимое число от 1 до 6");
+		if (num > 5 || num < 0)
+			throw new NumStorError("Допустимое число от 0 до 5");
 		return data;
 	}
 }
