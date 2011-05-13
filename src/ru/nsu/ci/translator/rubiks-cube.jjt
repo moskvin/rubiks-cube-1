@@ -109,7 +109,7 @@ import ru.nsu.ci.graphics.JOGL_cube;
 )
 //<EOL>
    )*
- <EOF>
+ //<EOF>
  }
 
  void turn() throws NumberFormatException #turn:
@@ -124,17 +124,18 @@ import ru.nsu.ci.graphics.JOGL_cube;
       (         Number() # tunum
       )
       
-                     
+      (                       
          <POCH>
          {          
           num1=-1;
-          jjtThis.setNum1(num1);       }
+          jjtThis.setNum1(num1);         }
        | 
          <PRCH>
          {          
           num1=1;
           jjtThis.setNum1(num1);
-       }
+         }
+       )
      )
      
      }
