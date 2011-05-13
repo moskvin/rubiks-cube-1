@@ -150,12 +150,26 @@ public class MainFrame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (e.getActionCommand().equals("Загрузить")) {
 					JFileChooser fileopen = new JFileChooser();
+					int i=0;
 					int ret = fileopen.showOpenDialog(MainFrame.this);
 					if (ret == JFileChooser.APPROVE_OPTION) {
 						File file = fileopen.getSelectedFile();
 						try {
 							FileInputStream fis = new FileInputStream(file);
 							DataInputStream dis = new DataInputStream(fis);
+							
+							for(int[][] subArray: JOGL_cube.rubicsCube.cube)
+							{
+								for(int[] subsub:subArray)
+								{
+									i=0;
+									for(int n:subsub)
+									{
+										subsub[i] = dis.readInt();
+										i++;
+									}
+								}
+							}							
 							text.setText("");
 							while ((dis.available()) != 0) {
 								text.setText(text.getText()+dis.readUTF()+"\n");								
@@ -177,10 +191,20 @@ public class MainFrame extends JFrame {
 						int ret = fileopen.showSaveDialog(MainFrame.this);
 						if (ret == JFileChooser.APPROVE_OPTION) {
 							File file = fileopen.getSelectedFile();
-							fileopen.setSelectedFile(file);
+							fileopen.setSelectedFile(file);								
 							try {
 								FileOutputStream fos = new FileOutputStream(file);
 								DataOutputStream dos = new DataOutputStream(fos);
+								for(int[][] subArray:JOGL_cube.rubicsCube.cube)
+								{
+									for(int[] subsub:subArray)
+									{
+										for(int n:subsub)
+										{
+											dos.writeInt(n);
+										}
+									}
+								}
 								dos.writeUTF(text.getText());
 							} catch (FileNotFoundException e1) {
 								// TODO Auto-generated catch block
@@ -205,13 +229,6 @@ public class MainFrame extends JFrame {
 								try {									
 									SI.main(null,text.getText());									
 								}catch(NumStorError error){										
-								/*	s.replace("\u043f\u043e\u0427\u0430\u0441\u043e\u0432\u043e\u0439", "поЧасовой");
-									s.replace("\u043f\u0440\u0427\u0430\u0441\u043e\u0432\u043e\u0439", "прЧасовой");
-									s.replace("\u043f\u043e\u0432\u0435\u0440\u043d\u0443\u0442\u044c", "повернуть");
-									s.replace("\u043f\u043e\u0432\u0442\u043e\u0440\u0438\u0442\u044c", "повторить");
-									s.replace("\u0440\u0430\u0437", "раз");
-									s.replace("\u0437\u0430\u043d\u043e\u0432\u043e", "заново");
-									s.replace("\u043e\u0442\u043c\u0435\u043d\u0438\u0442\u044c", "отменить");*/									
 									JOptionPane.showMessageDialog(null, filter(error.getMessage()),"Ошибка",JOptionPane.WARNING_MESSAGE);
 								}catch(ParseException message){																	
 									JOptionPane.showMessageDialog(null, filter(message.getMessage()),"Ошибка",JOptionPane.WARNING_MESSAGE);
@@ -221,7 +238,8 @@ public class MainFrame extends JFrame {
 							}
 							else
 								if (e.getActionCommand().equals("Новая игра")){
-									 JOGL_cube.rubicsCube.delsavefile();
+									JOGL_cube.rubicsCube.init();
+									JOGL_cube.rubicsCube.delsavefile();
 									
 								}
 								else
