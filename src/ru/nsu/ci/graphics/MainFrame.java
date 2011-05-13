@@ -14,7 +14,7 @@ public class MainFrame extends JFrame {
 
 	public MainFrame() throws HeadlessException {
 		
-		JFrame frame = new JFrame("Rubiks Cube Interpreter");
+		final JFrame frame = new JFrame("Rubiks Cube Interpreter");
 		
 		Color darkViolet = new Color(66,49,137); 
 		Color indigo = new Color(75,0,130);
@@ -25,13 +25,14 @@ public class MainFrame extends JFrame {
 		JPanel panelDraw = new JPanel();
 		JPanel panelControl = new JPanel();
 		
-		JTextArea text = new JTextArea(5,5);
+		final JTextArea text = new JTextArea(5,5);
 		JScrollPane scrollpane = new JScrollPane(text);
 	
-		JButton start = new JButton("Старт");
-		JButton exit = new JButton("Выход");
+		JButton start = new JButton("Запустить");
+		JButton exit = new JButton("    Выход    ");
 		JButton save = new JButton("Сохранить");
 		JButton load = new JButton("Загрузить");
+		JButton newgame = new JButton("Новая игра");
 		
 		GLCanvas canvas = new GLCanvas();
 		Animator animator = new Animator(canvas);
@@ -57,7 +58,7 @@ public class MainFrame extends JFrame {
 		
 		c.weightx = 0.3; c.weighty = 0.3;
 		c.gridheight = 1;
-		c.ipadx = 400; c.ipady = 400;
+		c.ipadx = 0; c.ipady = 0;
 		c.gridwidth = GridBagConstraints.REMAINDER;
 		GBL.setConstraints(panelDraw, c);
 		frame.add(panelDraw);
@@ -76,11 +77,11 @@ public class MainFrame extends JFrame {
 				
 		c.anchor = GridBagConstraints.NORTH; 
 		c.fill   = GridBagConstraints.NONE;  
-		c.gridheight = 1; 	c.gridwidth =  4;
+		c.gridheight = 1; 	c.gridwidth =  5;
 		c.gridx = 0;	c.gridy = 0; 
 		c.insets = new Insets(2, 2, 2, 2);
 		c.weightx = 0.6; c.weighty = 0.6;
-		c.ipadx = 270;	c.ipady = 400;
+		c.ipadx = 290;	c.ipady = 400;
 		scrollpane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollpane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 		text.setWrapStyleWord(true);
@@ -93,6 +94,7 @@ public class MainFrame extends JFrame {
 		
 		start.setFont(MC2);
 		save.setFont(MC2);
+		newgame.setFont(MC2);
 		load.setFont(MC2);
 		exit.setFont(MC2);
 		
@@ -112,19 +114,92 @@ public class MainFrame extends JFrame {
 		GBL.setConstraints(load, c);
 		panelControl.add(load);
 		
-		c.gridx = 3;	c.gridy = 1;
+		c.gridx = 0;	c.gridy = 2;
+		c.gridheight = 1; c.gridwidth = 1; 
+		GBL.setConstraints(newgame, c);
+		panelControl.add(newgame);
+		
+		c.gridx = 1;	c.gridy = 2;
 		c.gridheight = 1; c.gridwidth = 1; 
 		GBL.setConstraints(exit, c);
 		panelControl.add(exit);
-		
-	   // JOGL_draw.main(null, panelJOGL_draw, frame);
-	  //  JOGL_cube.main(null, panelDraw, frame);
+						
+	    JOGL_draw.main(null, panelJOGL_draw, frame);
+	    JOGL_cube.main(null, panelDraw, frame);
 	    
 		animator.start();
 		canvas.requestFocus();
 		
-		//ActionListener actionListener = new TestActionListener();
-		//load.addActionListener(actionListener);
+		ActionListener actionListener = new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (e.getActionCommand().equals("Загрузить")) {
+					JFileChooser fileopen = new JFileChooser();
+					int ret = fileopen.showOpenDialog(MainFrame.this);
+					if (ret == JFileChooser.APPROVE_OPTION) {
+						File file = fileopen.getSelectedFile();
+						try {
+							FileInputStream fis = new FileInputStream(file);
+							DataInputStream dis = new DataInputStream(fis);
+							text.setText("");
+							while ((dis.available()) != 0) {
+								text.setText(text.getText()+dis.readUTF()+"\n");								
+							}
+						} catch (FileNotFoundException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+							JOptionPane.showMessageDialog(null, "File not found");
+						} catch (IOException e2) {
+							// TODO Auto-generated catch block
+							e2.printStackTrace();
+							JOptionPane.showMessageDialog(null, "File not read");
+						}
+					}
+				}
+				else
+					if (e.getActionCommand().equals("Сохранить")) {
+						JFileChooser fileopen = new JFileChooser();
+						int ret = fileopen.showSaveDialog(MainFrame.this);
+						if (ret == JFileChooser.APPROVE_OPTION) {
+							File file = fileopen.getSelectedFile();
+							fileopen.setSelectedFile(file);
+							try {
+								FileOutputStream fos = new FileOutputStream(file);
+								DataOutputStream dos = new DataOutputStream(fos);
+								dos.writeUTF(text.getText());
+							} catch (FileNotFoundException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+								JOptionPane.showMessageDialog(null, "File not create");
+							} catch (IOException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+								JOptionPane.showMessageDialog(null, "File not write");
+							}
+						}
+						
+					}
+					else
+						if (e.getActionCommand().equals("    Выход    ")){	
+							System.exit(0);
+						}
+						else
+							if (e.getActionCommand().equals("Запустить")){
+								
+							}
+							else
+								if (e.getActionCommand().equals("Новая игра")){
+									
+								}
+								
+			}
+		};
+		load.addActionListener(actionListener);
+		save.addActionListener(actionListener);
+		exit.addActionListener(actionListener);
+		start.addActionListener(actionListener);
+		newgame.addActionListener(actionListener);
 		
 		frame.setVisible(true);
 		frame.pack();
