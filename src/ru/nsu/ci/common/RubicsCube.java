@@ -182,12 +182,12 @@ public class RubicsCube implements  RubiksCubeInterface {
     if (goriz!=0){
     	saveStep( k, goriz);
     	for (l=0;l<3;l++){//Запоминаем верхнюю строку
-		povorcube[l]=cube[l][0][k];
+		povorcube[l]=cube[0][l][k];
 	}
 	
 	if (goriz>0){
 	for(l=0;l<2;l++){
-		cube[0][l][k]=cube[2-1][0][k];
+		cube[0][l][k]=cube[2-l][0][k];
 	    cube[2-l][0][k]=cube[2][2-l][k];
 	    cube[2][2-l][k]=cube[l][2][k];
 	   cube[l][2][k]=povorcube[l];
@@ -203,6 +203,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	        cube[0][2-l][3]=cube[l][0][4];
 	        cube[l][0][4]=n;
 	    }//0 нулевая плоскость 
+		 break;
 	case 1 :
 		for( l=0;l<3;l++)
 	    {
@@ -211,7 +212,8 @@ public class RubicsCube implements  RubiksCubeInterface {
 	        cube[0][2-l][5]=cube[0][2-l][0];
 	        cube[0][2-l][0]=cube[0][2-l][4];
 	        cube[0][2-l][4]=n;
-	    } //1 первая плоскость 
+	    } //1 первая плоскость
+		break;
 	case 2 :    for(l=0;l<3;l++)
 	    {
 	        n=cube[0][2-l][1];
@@ -220,6 +222,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	        cube[2][l][3]=cube[l][0][5];
 	        cube[l][0][5]=n;
 	    } //2 вторая плоскость
+		break;
 	case 3 :    for(l=0;l<3;l++)
 	    {
 	        n=cube[2][l][0];
@@ -228,6 +231,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	        cube[2][l][2]=cube[2][l][4];
 	        cube[2][l][4]=n;
 	    } //3 третья плоскость
+	break;
 	case 4 :    for(l=0;l<3;l++)
 	    {
 	        n=cube[2-l][2][1];
@@ -236,6 +240,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	        cube[2-l][2][3]=cube[l][0][2];
 	        cube[l][0][2]=n;
 	    } //4 четвёртая плоскость
+	break;
 	case 5 :     for(l=0;l<3;l++)
 	    {
 	        n=cube[l][0][1];
@@ -244,7 +249,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	        cube[l][0][3]=cube[l][0][0];
 	        cube[l][0][0]=n;
 	    } //5 пятая плоскость
-	
+	break;
 	
 	
 	
@@ -270,6 +275,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 		        cube[0][2-l][3]=cube[2-l][2][5];
 		        cube[2-l][2][5]=n;
 		    }//0 нулевая плоскость 
+			 break;
 		case 1 :
 			for( l=0;l<3;l++)
 		    {
@@ -279,6 +285,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 		        cube[0][2-l][0]=cube[0][2-l][5];
 		        cube[0][2-l][5]=n;
 		    } //1 первая плоскость 
+			break;
 		case 2 :    for(l=0;l<3;l++)
 		    {
 		        n=cube[0][2-l][1];
@@ -287,6 +294,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 		        cube[2][l][3]=cube[2-l][2][4];
 		        cube[2-l][2][4]=n;
 		    } //2 вторая плоскость
+		break;
 		case 3 :    for(l=0;l<3;l++)
 		    {
 		        n=cube[2][l][0];
@@ -295,6 +303,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 		        cube[2][l][2]=cube[2][l][5];
 		        cube[2][l][5]=n;
 		    } //3 третья плоскость
+		break;
 		case 4 :    for(l=0;l<3;l++)
 		    {
 		        n=cube[2-l][2][1];
@@ -303,6 +312,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 		        cube[2-l][2][3]=cube[2-l][2][0];
 		        cube[2-l][2][0]=n;
 		    } //4 четвёртая плоскость
+		break;
 		case 5 :     for(l=0;l<3;l++)
 		    {
 		        n=cube[l][0][1];
@@ -311,8 +321,10 @@ public class RubicsCube implements  RubiksCubeInterface {
 		        cube[l][0][3]=cube[2-l][2][2];
 		        cube[2-l][2][2]=n;
 		    } //5 пятая плоскость
+		break;
 		 
 	}
+		check();
 	}
 	}
 
