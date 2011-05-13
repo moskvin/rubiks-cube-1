@@ -20,6 +20,7 @@ import java.io.*;
 import java.nio.charset.Charset;
 import ru.nsu.ci.common.RubicsCube;
 import ru.nsu.ci.graphics.MainFrame;
+import ru.nsu.ci.graphics.JOGL_cube;
   public class SI
    {
     	public static void main(String[] args, String s) throws ParseException, TokenMgrError, NumberFormatException
@@ -28,7 +29,7 @@ import ru.nsu.ci.graphics.MainFrame;
 	    SI si = new SI(is);
        // SI si=new SI(System.in);
         si.start();
-        RubicVisitor visitorC = new RubicVisitor(new RubicsCube());
+        RubicVisitor visitorC = new RubicVisitor(JOGL_cube.rubicsCube);
         si.rootNode().jjtAccept(visitorC,null);
 	}
 	
@@ -78,7 +79,7 @@ import ru.nsu.ci.graphics.MainFrame;
  */
 
  SKIP: {" "}
- TOKEN:{  <EOL: "\n" | "\r" |"\r\n" >}
+ SKIP:{  <EOL: "\n" | "\r" |"\r\n" >}
  TOKEN:{  <NUMBER : (["0"-"9"])+ >}
  TOKEN:{  <POCH: "\u043f\u043e\u0427\u0430\u0441\u043e\u0432\u043e\u0439" >}
  TOKEN:{  <PRCH: "\u043f\u0440\u0427\u0430\u0441\u043e\u0432\u043e\u0439" >}
@@ -108,7 +109,7 @@ import ru.nsu.ci.graphics.MainFrame;
 )
 //<EOL>
    )*
-  //<EOF>
+ <EOF>
  }
 
  void turn() throws NumberFormatException #turn:
