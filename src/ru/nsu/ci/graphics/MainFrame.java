@@ -7,14 +7,17 @@ import java.text.AttributedCharacterIterator.Attribute;
 import java.util.Map;
 import javax.media.opengl.awt.GLCanvas;
 import javax.swing.*;
-
+import ru.nsu.ci.NumStorError;
+import ru.nsu.ci.translator.SI;
+import ru.nsu.ci.translator.TokenMgrError;
+import ru.nsu.ci.translator.ParseException;
 import com.jogamp.opengl.util.Animator;
 
 public class MainFrame extends JFrame {
 
 	public MainFrame() throws HeadlessException {
-		
-		final JFrame frame = new JFrame("Rubiks Cube Interpreter");
+				
+		final JFrame frame = new JFrame("Rubiks Cube Interpreter");		
 		
 		Color darkViolet = new Color(66,49,137); 
 		Color indigo = new Color(75,0,130);
@@ -167,7 +170,7 @@ public class MainFrame extends JFrame {
 							try {
 								FileOutputStream fos = new FileOutputStream(file);
 								DataOutputStream dos = new DataOutputStream(fos);
-								dos.writeUTF(text.getText());
+								dos.writeUTF(text.getText());								
 							} catch (FileNotFoundException e1) {
 								// TODO Auto-generated catch block
 								e1.printStackTrace();
@@ -186,7 +189,15 @@ public class MainFrame extends JFrame {
 						}
 						else
 							if (e.getActionCommand().equals("Запустить")){
-								
+								try {									
+									SI.main(null, text.getText());																		
+								}catch(NumStorError error){	
+									JOptionPane.showMessageDialog(null, "Error");
+								}catch(ParseException message){		
+									JOptionPane.showMessageDialog(null, "Error");
+								}catch(TokenMgrError  message){	
+									JOptionPane.showMessageDialog(null, "Error");
+								}
 							}
 							else
 								if (e.getActionCommand().equals("Новая игра")){

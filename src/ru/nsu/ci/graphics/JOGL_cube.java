@@ -225,7 +225,7 @@ public class JOGL_cube implements GLEventListener, KeyListener {
     public static void main(String[] args, JPanel panel, JFrame frame) {
         canvas.addGLEventListener(new JOGL_cube());
         panel.add(canvas);
-        canvas.setSize(400, 200);
+        canvas.setSize(400, 400);
     /*    frame.setUndecorated(true);
         frame.setExtendedState(Frame.MAXIMIZED_BOTH);*/
         frame.addWindowListener(new WindowAdapter() {

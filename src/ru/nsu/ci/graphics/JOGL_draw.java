@@ -199,8 +199,6 @@ public class JOGL_draw implements GLEventListener, KeyListener {
         canvas.addGLEventListener(new JOGL_draw());
         panel.add(canvas);
         canvas.setSize(400, 200);
-    /*    frame.setUndecorated(true);
-        frame.setExtendedState(Frame.MAXIMIZED_BOTH);*/
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 exit();

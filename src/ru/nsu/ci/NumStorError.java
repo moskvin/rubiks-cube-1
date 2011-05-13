@@ -5,7 +5,7 @@ import ru.nsu.ci.translator.TokenMgrError;
 
 public class NumStorError extends Error{
 	
-	NumStorError(String error){
+	public NumStorError(String error){
 		super(error);
 	}
 }

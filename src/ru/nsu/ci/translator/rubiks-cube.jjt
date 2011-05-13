@@ -19,11 +19,12 @@ import ru.nsu.ci.translator.TokenMgrError;
 import java.io.*;
 import java.nio.charset.Charset;
 import ru.nsu.ci.common.RubicsCube;
+import ru.nsu.ci.graphics.MainFrame;
   public class SI
    {
-    	public static void main(String[] args) throws ParseException, TokenMgrError, NumberFormatException
+    	public static void main(String[] args, String s) throws ParseException, TokenMgrError, NumberFormatException
     {
-	    ByteArrayInputStream is = new ByteArrayInputStream("повторить 5 повторить 3 заново раз повернуть 2 поЧасовой раз".getBytes());
+	    ByteArrayInputStream is = new ByteArrayInputStream(s.getBytes());
 	    SI si = new SI(is);
        // SI si=new SI(System.in);
         si.start();
