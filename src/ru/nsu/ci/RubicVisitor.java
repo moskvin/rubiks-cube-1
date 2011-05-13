@@ -2,11 +2,12 @@ package ru.nsu.ci;
 
 import java.io.PrintStream;
 
+import ru.nsu.ci.common.RubicsCube;
+import ru.nsu.ci.common.RubiksCubeInterface;
 import ru.nsu.ci.translator.ASTcancel;
 import ru.nsu.ci.translator.ASTend;
 import ru.nsu.ci.translator.ASTfore;
 import ru.nsu.ci.translator.ASTg;
-import ru.nsu.ci.translator.ASTmov;
 import ru.nsu.ci.translator.ASTrestart;
 import ru.nsu.ci.translator.ASTstart;
 import ru.nsu.ci.translator.ASTtemp;
@@ -15,154 +16,128 @@ import ru.nsu.ci.translator.ASTturn;
 import ru.nsu.ci.translator.SIVisitor;
 import ru.nsu.ci.translator.SimpleNode;
 import ru.nsu.ci.translator.Node;
+
 //import ru.nsu.ci.translator.ASTtemp2;
 
+public class RubicVisitor implements SIVisitor {
 
+	private RubiksCubeInterface rubiccube;
+	//private PrintStream printStream;
+	private int indent = 0;
+	private boolean cic = false;
 
-public class RubicVisitor implements SIVisitor{
-	private PrintStream printStream;
-	private int indent=0;
-	private boolean cic=false;
-	public RubicVisitor(PrintStream printStream)	{
-		this.printStream=printStream;
+	public RubicVisitor(RubiksCubeInterface rubiccube) {
+		this.rubiccube = rubiccube;
 	}
-	private String identString() {
-		StringBuffer sb= new StringBuffer();
-		for (int i = 0; i < indent; ++i)
-		{
+
+	/*private String identString() {
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < indent; ++i) {
 			sb.append(' ');
 		}
 		return sb.toString();
+	}*/
+
+	public Object visit(SimpleNode node, Object data) {
+		return null;
 	}
-	
-	
-	public Object visit (SimpleNode node, Object data)
-	{return null;} 
-	
-	
-	public Object visit (ASTturn node, Object data)
-	{ 	
+
+	public Object visit(ASTturn node, Object data) {
 		int num;
-		String lett;
-		printStream.println(identString()+node);
+		/*printStream.println(identString() + node);
 		++indent;
-		data = node.childrenAccept(this,data);
-		--indent;
-		num=node.getNum();
-        lett=node.getLett();
-        
-	    return data;
-	        
-		}
-	
-	public Object visit (ASTcancel node, Object data)
-	{
-		int num;
-		printStream.println(identString()+node);
-	   ++indent;
-		data = node.childrenAccept(this,data);
-		--indent;
-		num=node.getNum();
+		data = node.childrenAccept(this, data);
+		--indent;*/
+		num = node.getNum();
 		return data;
-		}
-	
-	public Object visit (ASTfore node, Object data)
-	{   
+
+	}
+
+	public Object visit(ASTcancel node, Object data) {
+		int num;
+		/*printStream.println(identString() + node);
+		++indent;
+		data = node.childrenAccept(this, data);
+		--indent;*/
+		num = node.getNum();
+		return data;
+	}
+
+	public Object visit(ASTfore node, Object data) {
 
 		int num;
-		printStream.println(identString()+node);
-	    ++indent;
-	    num=node.getNum();
-	    System.out.println("prishol = " + num);
-	    for (int i = 0; i<num; i++)
-	    {
-		data = node.childrenAccept(this,data);
-	    }
+		num = node.getNum();
+/*		printStream.println(identString() + node);
+		++indent;		
+		System.out.println("prishol = " + num);
 		System.out.println("number of child = " + node.jjtGetNumChildren());
-		--indent;
-		return data;
+*/		for (int i = 0; i < num; i++) {
+			data = node.childrenAccept(this, data);
 		}
-	
-	
-	public Object visit (ASTend node, Object data)
-	{ 	
-		printStream.println(identString()+node);
-		++indent;
-		data = node.childrenAccept(this,data);
-		--indent;		
-	    return data;
-	        
-		}
-	
-	
-	public Object visit (ASTmov node, Object data)
-	{
-		int num;
-		printStream.println(identString()+node);
-	    ++indent;
-		data = node.childrenAccept(this,data);
 		--indent;
-        num=node.getNum();
-       // System.out.println("prishol = " + num);
-        if (num>6 || num <1)
-			 throw new NumStorError("Допустимое число от 1 до 6");	
 		return data;
 	}
-	
-	public Object visit (ASTrestart node, Object data)
-	{   printStream.println(identString()+node);
-	    ++indent;
-		data = node.childrenAccept(this,data);
-		--indent;
-		return data;
-		}
-	
-	public Object visit (ASTtemp node, Object data)
-	{   int num=0;
-		printStream.println(identString()+node);
-	    ++indent;
-		data = node.childrenAccept(this,data);
-		--indent;
-		num=node.getNum();
-		//System.out.println("prishol = " + num);
-		Node n = node.jjtGetParent();
-        RubicNode rn = (RubicNode)n;
-        rn.setNum(num);
-		return data;
-		}
-	
 
-	
-	public Object visit (ASTstart node, Object data)
-	{ 	
-		printStream.println(identString()+node);
+	public Object visit(ASTend node, Object data) {
+		/*printStream.println(identString() + node);
 		++indent;
-		data = node.childrenAccept(this,data);
-		--indent;
-	    return data;
-	        
+		--indent;*/
+		data = node.childrenAccept(this, data);
+		
+		return data;
+
 	}
-	
-	public Object visit (ASTg node, Object data)
-	{ 	
-		printStream.println(identString()+node);
+
+	public Object visit(ASTrestart node, Object data) {
+		/*printStream.println(identString() + node);
 		++indent;
-		data = node.childrenAccept(this,data);
-		--indent;
-	    return data;
-	}	
-	
-	public Object visit (ASTtunum node, Object data)
-	{ 	
-		printStream.println(identString()+node);
+		--indent;*/
+		data = node.childrenAccept(this, data);
+		return data;
+	}
+
+	public Object visit(ASTtemp node, Object data) {
+		int num = 0;
+		/*printStream.println(identString() + node);
 		++indent;
-		data = node.childrenAccept(this,data);
 		--indent;
-		int num=2;
-		num=node.getNum();
-		//System.out.println("prishol = " + num);
-		if (num>3 || num <1)
-			 throw new NumStorError("Допустимое число от 1 до 3");	
-	    return data;
-	}	
+		// System.out.println("prishol = " + num);
+*/		data = node.childrenAccept(this, data);
+		num = node.getNum();
+		Node n = node.jjtGetParent();
+		RubicNode rn = (RubicNode) n;
+		rn.setNum(num);
+		return data;
+	}
+
+	public Object visit(ASTstart node, Object data) {
+		/*printStream.println(identString() + node);
+		++indent;
+		--indent;*/
+		data = node.childrenAccept(this, data);
+		return data;
+
+	}
+
+	public Object visit(ASTg node, Object data) {
+		/*printStream.println(identString() + node);
+		++indent;
+		--indent;*/
+		data = node.childrenAccept(this, data);
+		return data;
+	}
+
+	public Object visit(ASTtunum node, Object data) {
+/*		printStream.println(identString() + node);
+		++indent;
+		--indent;
+		// System.out.println("prishol = " + num);
+	*/
+		data = node.childrenAccept(this, data);
+		int num = 2;
+		num = node.getNum();
+		if (num > 3 || num < 1)
+			throw new NumStorError("Допустимое число от 1 до 3");
+		return data;
+	}
 }
