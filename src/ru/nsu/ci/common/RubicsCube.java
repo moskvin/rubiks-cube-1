@@ -15,7 +15,8 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class RubicsCube implements  RubiksCubeInterface {
 	 private static Random random = new Random();
 	 Deque<Integer> deque = new ArrayDeque<Integer>();
-	 File file = new File("save.txt");
+	 File save = new File("save.txt");
+	 File restart = new File("restart.txt");
 		FileOutputStream fos; 		
 		DataOutputStream dos;
 		FileInputStream pos; 
@@ -79,6 +80,8 @@ public class RubicsCube implements  RubiksCubeInterface {
 			turnGoriz(k,goriz);
 			 
 			 }
+		restart();
+		
 		
 	}
 
@@ -86,7 +89,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 	public void load(String filename) {
 	
 		try {
-			pos = new FileInputStream(file);
+			pos = new FileInputStream(save);
 			kos = new DataInputStream(pos);
 			for(int[][] subArray:cube)
 			{
@@ -113,7 +116,8 @@ public class RubicsCube implements  RubiksCubeInterface {
 	@Override
 	public void save(String filename) {
 				try {
-			fos = new FileOutputStream(file);
+					
+			fos = new FileOutputStream(save);
 			dos = new DataOutputStream(fos);
 			for(int[][] subArray:cube)
 			{
@@ -143,6 +147,32 @@ public class RubicsCube implements  RubiksCubeInterface {
 		}
 		
 	}
+	public void restart(){
+		try {
+			fos = new FileOutputStream(restart);
+			dos = new DataOutputStream(fos);
+			for(int[][] subArray:cube)
+			{
+				for(int[] subsub:subArray)
+				{
+					for(int n:subsub)
+					{
+						dos.writeInt(n);
+					}
+				}
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+		
+		
+		
+		
+		
+	
 
 	@Override
 	public void turnGoriz( int k, int goriz) {
