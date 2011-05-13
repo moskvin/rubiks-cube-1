@@ -47,12 +47,14 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import java.util.Random;
 
 import com.jogamp.opengl.util.Animator;
  
 import ru.nsu.ci.common.RubicsCube;
 
 public class JOGL_draw implements GLEventListener, KeyListener {
+	 private static Random random = new Random();
     float rotateT = 0.0f;
  
     static GLU glu = new GLU();
@@ -62,8 +64,7 @@ public class JOGL_draw implements GLEventListener, KeyListener {
     static Frame frame = new Frame("Rubik's Cube");
  
     static Animator animator = new Animator(canvas); 
-    
-    RubicsCube rubicsCube = new RubicsCube();
+
     
     float rot1=180f;
     float rot2=0;
@@ -163,9 +164,20 @@ public class JOGL_draw implements GLEventListener, KeyListener {
     	      for(k=0;k<6;k++)
     	   		for(j=0;j<3;j++)
     	   		 for(i=0;i<3;i++)
-    	   		  rubicsCube.cube[i][j][k]=a[i+3*j+9*k];    		  
+    	   		  JOGL_cube.rubicsCube.cube[i][j][k]=a[i+3*j+9*k];    		  
     		  break;
     	  }
+    	  case KeyEvent.VK_1:
+    	  	{ JOGL_cube.rubicsCube.turnGoriz(0,1);break;} 
+    	  case KeyEvent.VK_2:
+    	    { 
+      	    int i,j,k;
+  	      		for(k=0;k<1;k++)
+  	      			for(j=0;j<1;j++)
+  	      				for(i=0;i<1;i++)
+	      					System.out.printf("%f",JOGL_cube.rubicsCube.cube[i][j][k]*1.0);
+     			 	break; 
+          }
         }
     }
  
@@ -177,7 +189,7 @@ public class JOGL_draw implements GLEventListener, KeyListener {
     
     public void SetColor(GL2 gl, int i,int j,int k)
     {
-    	switch (rubicsCube.cube[i][j][k])
+    	switch (JOGL_cube.rubicsCube.cube[i][j][k])
     	{
     		case 0:{ gl.glColor3f(1f,1f,1f); break;}
     		case 1:{ gl.glColor3f(1f,1f,0f); break;}
@@ -199,6 +211,12 @@ public class JOGL_draw implements GLEventListener, KeyListener {
         canvas.addGLEventListener(new JOGL_draw());
         panel.add(canvas);
         canvas.setSize(400, 200);
+<<<<<<< HEAD
+        JOGL_cube.rubicsCube.init();
+    /*    frame.setUndecorated(true);
+        frame.setExtendedState(Frame.MAXIMIZED_BOTH);*/
+=======
+>>>>>>> 92c40f3ab40374fa19c99308270b766a88718616
         frame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
                 exit();
