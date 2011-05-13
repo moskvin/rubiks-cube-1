@@ -95,7 +95,7 @@ import ru.nsu.ci.common.RubicsCube;
  void turn() throws NumberFormatException #turn:
  {
 	Token t;
-	String lett;
+	int num1;
  }
  {
     <TURN> 
@@ -106,8 +106,15 @@ import ru.nsu.ci.common.RubicsCube;
       
                      
          <POCH>
+         {          
+          num1=-1;
+          jjtThis.setNum1(num1);       }
        | 
          <PRCH>
+         {          
+          num1=1;
+          jjtThis.setNum1(num1);
+       }
      )
      
      }
