@@ -95,11 +95,27 @@ public class RubicsCube implements  RubiksCubeInterface {
 			 }
 		deque.clear();		
 
-		
+		try {
+			fos = new FileOutputStream(restart);
+			dos = new DataOutputStream(fos);
+			for(int[][] subArray:cube)
+			{
+				for(int[] subsub:subArray)
+				{
+					for(int n:subsub)
+					{
+						dos.writeInt(n);
+					}
+				}
+			}
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 			 
 			
 
-		restart();
+		//restart();
 		
 		
 }
@@ -168,15 +184,18 @@ public class RubicsCube implements  RubiksCubeInterface {
 	}
 	public void restart(){
 		try {
-			fos = new FileOutputStream(restart);
-			dos = new DataOutputStream(fos);
+			FileInputStream fis = new FileInputStream(restart);
+			DataInputStream dis = new DataInputStream(fis);
+			int i;
 			for(int[][] subArray:cube)
 			{
 				for(int[] subsub:subArray)
 				{
+					i=0;
 					for(int n:subsub)
 					{
-						dos.writeInt(n);
+						subsub[i] = dis.readInt();
+						i++;
 					}
 				}
 			}

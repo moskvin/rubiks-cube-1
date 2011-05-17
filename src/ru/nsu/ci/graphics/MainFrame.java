@@ -227,7 +227,7 @@ public class MainFrame extends JFrame {
 						else
 							if (e.getActionCommand().equals("Запустить")){
 								try {	
-									JOGL_cube.rubicsCube.restart();
+									//JOGL_cube.rubicsCube.restart();
 									SI.main(null,text.getText());									
 								}catch(NumStorError error){										
 									JOptionPane.showMessageDialog(null, filter(error.getMessage()),"Ошибка",JOptionPane.WARNING_MESSAGE);
