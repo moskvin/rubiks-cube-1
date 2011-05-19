@@ -22,11 +22,6 @@
 */
 //I’m making a note here: huge success
 
-//Вращать куб стрелками. Любые изменения массива cube будут отображены на кубе и развертке сразу же
-//Повороты все еще не анимированы, но зато теперь видны кубики, а не просто плоскости в пространстве 
-//Осталось разве что отцентрировать камеру, да мышь прикрутить
-//Клавиша Enter - нанесение на куб заранее подготовленного мной тестового массива. Это на случай если генерация кубика еще не готова.
-
 package ru.nsu.ci.graphics;
 
 import java.awt.Component;
@@ -47,16 +42,13 @@ import javax.media.opengl.fixedfunc.GLMatrixFunc;
 import javax.media.opengl.glu.GLU;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import java.util.Random;
 import ru.nsu.ci.graphics.JOGL_cube;
 
 import com.jogamp.opengl.util.Animator;
  
-import ru.nsu.ci.common.RubicsCube;
 
 public class JOGL_draw implements GLEventListener, KeyListener {
-	 private static Random random = new Random();
-    float rotateT = 0.0f;
+	 float rotateT = 0.0f;
  
     static GLU glu = new GLU();
  
@@ -99,7 +91,7 @@ public class JOGL_draw implements GLEventListener, KeyListener {
        			gl.glTranslatef(-0.15f,0f, 0f);
        			for(i=0;i<3;i++)
        			{
-       				SetColor(gl,j,i,k2);
+       				JOGL_cube.SetColor(gl,j,i,k2);
        		       	gl.glBegin(GL2.GL_QUADS);
        				gl.glVertex3f(i,j,0);
        				gl.glVertex3f(i,j+1,0);
@@ -110,6 +102,96 @@ public class JOGL_draw implements GLEventListener, KeyListener {
        			}
        			gl.glTranslatef(0f,0.05f, 0f);
        		}
+       		
+			gl.glBegin(GL2.GL_QUADS);			
+			gl.glColor3f(1f,1f,1f);
+			
+        	switch (k2)
+        	{
+        		case 1: {
+        			gl.glVertex3d(1.3,1,0);
+        			gl.glVertex3d(1.3,2,0);
+        			gl.glVertex3d(1.7,2,0);
+        			gl.glVertex3d(1.7,1,0);
+        			break;}
+        		case 2: {
+        			gl.glVertex3d(1.25,1,0);
+        			gl.glVertex3d(1.25,2,0);
+        			gl.glVertex3d(1.45,2,0);
+        			gl.glVertex3d(1.45,1,0);
+        			
+        			gl.glVertex3d(1.55,1,0);
+        			gl.glVertex3d(1.55,2,0);
+        			gl.glVertex3d(1.75,2,0);
+        			gl.glVertex3d(1.75,1,0);
+        			break;}
+        		case 3: {
+        			gl.glVertex3d(1.0,1,0);
+        			gl.glVertex3d(1.0,2,0);
+        			gl.glVertex3d(1.3,2,0);
+        			gl.glVertex3d(1.3,1,0);
+        			
+        			gl.glVertex3d(1.35,1,0);
+        			gl.glVertex3d(1.35,2,0);
+        			gl.glVertex3d(1.65,2,0);
+        			gl.glVertex3d(1.65,1,0);
+        			
+        			gl.glVertex3d(1.7,1,0);
+        			gl.glVertex3d(1.7,2,0);
+        			gl.glVertex3d(2,2,0);
+        			gl.glVertex3d(2,1,0);
+        			break;}         		
+        		case 0: {        			
+        			gl.glVertex3d(1,1,0);
+        			gl.glVertex3d(1,2,0);
+        			gl.glVertex3d(1.25,2,0);
+        			gl.glVertex3d(1.25,1,0);
+        			
+        			gl.glVertex3d(1.75,1,0);
+        			gl.glVertex3d(1.75,2,0);
+        			gl.glVertex3d(2,2,0);
+        			gl.glVertex3d(2,1,0);
+        			
+        			gl.glVertex3d(1,1,0);
+        			gl.glVertex3d(2,1,0);
+        			gl.glVertex3d(2,1.25,0);
+        			gl.glVertex3d(1,1.25,0);
+        			
+        			gl.glVertex3d(1,2,0);
+        			gl.glVertex3d(2,2,0);
+        			gl.glVertex3d(2,1.75,0);
+        			gl.glVertex3d(1,1.75,0);
+        			break;}       		
+        		case 5: {        			
+        			gl.glVertex3d(1,1,0);
+        			gl.glVertex3d(1.2,2,0);
+        			gl.glVertex3d(1.5,2,0);
+        			gl.glVertex3d(1.3,1,0);
+        			
+        			gl.glVertex3d(1.5,1,0);
+        			gl.glVertex3d(1.2,2,0);
+        			gl.glVertex3d(1.5,2,0);
+        			gl.glVertex3d(1.75,1,0);
+        			break;}  		
+        		case 4: {
+        			gl.glVertex3d(1.0,1,0);
+        			gl.glVertex3d(1.0,2,0);
+        			gl.glVertex3d(1.3,2,0);
+        			gl.glVertex3d(1.3,1,0);
+        			
+        			gl.glVertex3d(1.35,1,0);
+        			gl.glVertex3d(1.55,2,0);
+        			gl.glVertex3d(1.85,2,0);
+        			gl.glVertex3d(1.65,1,0);
+        			
+        			gl.glVertex3d(1.7,1,0);
+        			gl.glVertex3d(1.65,2,0);
+        			gl.glVertex3d(1.85,2,0);
+        			gl.glVertex3d(2,1,0);
+        			break;}
+        	}        	
+			gl.glEnd();
+	        
        		if (k<3)
        			gl.glTranslatef(3.2f,0f, 0f);
        		else if (k==3)
@@ -158,27 +240,6 @@ public class JOGL_draw implements GLEventListener, KeyListener {
     	  case KeyEvent.VK_RIGHT: {rot2+=10; break;}
     	  case KeyEvent.VK_UP: {rot1+=10; break;}
     	  case KeyEvent.VK_DOWN: {rot1-=10; break;}
-    	  case KeyEvent.VK_ENTER:
-    	  {
-    		  int i,j,k;
-    	      int[] a={0,1,0,0,1,0,0,1,0,2,2,0,0,2,0,2,2,2,3,3,3,0,0,3,3,3,3,4,0,4,4,4,4,0,0,4,0,5,5,0,5,0,5,5,5,6,6,6,6,0,0,6,6,6};
-    	      for(k=0;k<6;k++)
-    	   		for(j=0;j<3;j++)
-    	   		 for(i=0;i<3;i++)
-    	   		  JOGL_cube.rubicsCube.cube[i][j][k]=a[i+3*j+9*k];    		  
-    		  break;
-    	  }
-    	  case KeyEvent.VK_1:
-    	  	{ JOGL_cube.rubicsCube.turnGoriz(0,1);break;} 
-    	  case KeyEvent.VK_2:
-    	    { 
-      	    int i,j,k;
-  	      		for(k=0;k<1;k++)
-  	      			for(j=0;j<1;j++)
-  	      				for(i=0;i<1;i++)
-	      					System.out.printf("%f",JOGL_cube.rubicsCube.cube[i][j][k]*1.0);
-     			 	break; 
-          }
         }
     }
  
@@ -187,20 +248,6 @@ public class JOGL_draw implements GLEventListener, KeyListener {
  
     public void keyTyped(KeyEvent e) {
     }
-    
-    public void SetColor(GL2 gl, int i,int j,int k)
-    {
-    	switch (JOGL_cube.rubicsCube.cube[i][j][k])
-    	{
-    		case 0:{ gl.glColor3f(1f,1f,1f); break;}
-    		case 1:{ gl.glColor3f(1f,1f,0f); break;}
-    		case 2:{ gl.glColor3f(1f,0f,1f); break;}
-    		case 3:{ gl.glColor3f(0f,1f,1f); break;}
-    		case 4:{ gl.glColor3f(0f,0f,1f); break;}
-    		case 5:{ gl.glColor3f(0.1f,0.2f,0.3f); break;}
-    		case 6:{ gl.glColor3f(0.51f,0.52f,0.53f); break;}
-    	}
-    } 
  
     public static void exit() {
         animator.stop();
@@ -226,41 +273,5 @@ public class JOGL_draw implements GLEventListener, KeyListener {
  
     public void dispose(GLAutoDrawable gLDrawable) {
         // do nothing
-    }
-    
-    void DrawCube(float size,GL2 gl)
-    {
-         gl.glBegin(GL2.GL_QUADS);
-         // левая грань
-         gl.glVertex3f( -size / 2, -size / 2, -size / 2); 
-         gl.glVertex3f( -size / 2,  size / 2, -size / 2);
-         gl.glVertex3f( -size / 2,  size / 2,  size / 2);
-         gl.glVertex3f( -size / 2, -size / 2,  size / 2);
-         // правая грань
-         gl.glVertex3f(  size / 2, -size / 2, -size / 2); 
-         gl.glVertex3f(  size / 2, -size / 2,  size / 2);
-         gl.glVertex3f(  size / 2,  size / 2,  size / 2);
-         gl.glVertex3f(  size / 2,  size / 2, -size / 2);
-         // нижняя грань
-         gl.glVertex3f( -size / 2, -size / 2, -size / 2); 
-         gl.glVertex3f( -size / 2, -size / 2,  size / 2);
-         gl.glVertex3f(  size / 2, -size / 2,  size / 2);
-         gl.glVertex3f(  size / 2, -size / 2, -size / 2);
-         // верхняя грань
-         gl.glVertex3f( -size / 2, size / 2, -size / 2); 
-         gl.glVertex3f( -size / 2, size / 2,  size / 2);
-         gl.glVertex3f(  size / 2, size / 2,  size / 2);
-         gl.glVertex3f(  size / 2, size / 2, -size / 2);
-         // задняя грань
-         gl.glVertex3f( -size / 2, -size / 2, -size / 2); 
-         gl.glVertex3f(  size / 2, -size / 2, -size / 2);
-         gl.glVertex3f(  size / 2,  size / 2, -size / 2);
-         gl.glVertex3f( -size / 2,  size / 2, -size / 2);
-         // передняя грань
-         gl.glVertex3f( -size / 2, -size / 2,  size / 2); 
-         gl.glVertex3f(  size / 2, -size / 2,  size / 2);
-         gl.glVertex3f(  size / 2,  size / 2,  size / 2);
-         gl.glVertex3f( -size / 2,  size / 2,  size / 2);
-         gl.glEnd();
     }
 }

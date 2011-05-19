@@ -91,7 +91,7 @@ public class RubicsCube implements  RubiksCubeInterface {
 			int k=random.nextInt(6);
 			int goriz=random.nextInt(10)-5;
 
-			turnGoriz(k,goriz);			
+			//turnGoriz(k,goriz);			
 			 }
 		deque.clear();		
 

@@ -22,11 +22,6 @@
 */
 //I’m making a note here: huge success
 
-//Вращать куб стрелками. Любые изменения массива cube будут отображены на кубе и развертке сразу же
-//Повороты все еще не анимированы, но зато теперь видны кубики, а не просто плоскости в пространстве 
-//Осталось разве что отцентрировать камеру, да мышь прикрутить
-//Клавиша Enter - нанесение на куб заранее подготовленного мной тестового массива. Это на случай если генерация кубика еще не готова.
-
 package ru.nsu.ci.graphics;
 
 import java.awt.Component;
@@ -72,9 +67,7 @@ public class JOGL_cube implements GLEventListener, KeyListener, MouseListener, M
     float rot[]=new float[6];
             
     int x0,y0;
-    
-    boolean bPressed=false;
-    
+        
     public JOGL_cube() {
     	canvas.addGLEventListener(this);
     	canvas.addKeyListener(this);
@@ -89,20 +82,20 @@ public class JOGL_cube implements GLEventListener, KeyListener, MouseListener, M
         gl.glClear(GL.GL_COLOR_BUFFER_BIT);
         gl.glClear(GL.GL_DEPTH_BUFFER_BIT);
         gl.glLoadIdentity();
-        gl.glTranslatef(-1.5f, 1.5f, -8f);
+        gl.glTranslated(0,0,-8);
         gl.glRotatef(rot1,1f,0f,0f);
         gl.glRotatef(rot2,0f,1f,0f);
-        gl.glRotatef(rot3,0f,0f,1f);
-        glu.gluLookAt(1,0,0,0,0,-8,0,1,0);               
+        gl.glRotatef(rot3,0f,0f,1f);    
+        gl.glTranslated(-1.7,-1.7,-1.7);         
         for(k=0;k<6;k++)
         {
         	switch (k)
         	{
         		case 0: {k2=5; gl.glTranslatef(0f, 0f, 3.2f); gl.glRotatef(90.0f,0f,1f,0f); break;}
         		case 1: {k2=0; gl.glTranslatef(0f, 0f, 0f); break;}
-        		case 2: {k2=4; gl.glTranslatef(3.2f, 0f, 0f); gl.glRotatef(-90.0f,0f,1f,0f); break;}
+        		case 2: {k2=4; gl.glTranslatef(3.17f, 0f, 0f); gl.glRotatef(-90.0f,0f,1f,0f); break;}
         		case 3: {k2=2; gl.glTranslatef(3.2f, 0f, 3.2f); gl.glRotatef(180.0f,0f,1f,0f); break;}
-        		case 4: {k2=1; gl.glRotatef(90.0f,1f,0f,0f); gl.glRotatef(-180.0f,1f,0f,0f); gl.glTranslatef(.42f,-3.14f, -0.13f); break;}
+        		case 4: {k2=1; gl.glRotatef(90.0f,1f,0f,0f); gl.glRotatef(-180.0f,1f,0f,0f); gl.glTranslatef(.42f,-3f, -0.17f); break;}
         		case 5: {k2=3; gl.glRotatef(90.0f,1f,0f,0f); gl.glTranslatef(0.4f, 0.2f, -3f); break;}
         	}
         	gl.glTranslatef(0f,-0.15f,0f);
@@ -119,16 +112,109 @@ public class JOGL_cube implements GLEventListener, KeyListener, MouseListener, M
         			gl.glVertex3f(i+1,j,0);
         			gl.glEnd();
         			gl.glTranslatef(0.05f,0f, 0f);
+        			
         		}
         		gl.glTranslatef(0f,0.05f, 0f);
         	}
+        	
+	        gl.glTranslated(0,0,4.3);
+			gl.glBegin(GL2.GL_QUADS);			
+			gl.glColor3f(1f,1f,1f);
+			
+        	switch (k2)
+        	{
+        		case 3: {
+        			gl.glVertex3d(1.3,1,0);
+        			gl.glVertex3d(1.3,2,0);
+        			gl.glVertex3d(1.7,2,0);
+        			gl.glVertex3d(1.7,1,0);
+        			break;}
+        		case 0: {
+        			gl.glVertex3d(1.25,1,0);
+        			gl.glVertex3d(1.25,2,0);
+        			gl.glVertex3d(1.45,2,0);
+        			gl.glVertex3d(1.45,1,0);
+        			
+        			gl.glVertex3d(1.55,1,0);
+        			gl.glVertex3d(1.55,2,0);
+        			gl.glVertex3d(1.75,2,0);
+        			gl.glVertex3d(1.75,1,0);
+        			break;}
+        		case 1: {
+        			gl.glVertex3d(1.0,1,0);
+        			gl.glVertex3d(1.0,2,0);
+        			gl.glVertex3d(1.3,2,0);
+        			gl.glVertex3d(1.3,1,0);
+        			
+        			gl.glVertex3d(1.35,1,0);
+        			gl.glVertex3d(1.35,2,0);
+        			gl.glVertex3d(1.65,2,0);
+        			gl.glVertex3d(1.65,1,0);
+        			
+        			gl.glVertex3d(1.7,1,0);
+        			gl.glVertex3d(1.7,2,0);
+        			gl.glVertex3d(2,2,0);
+        			gl.glVertex3d(2,1,0);
+        			break;}         		
+        		case 5: {        			
+        			gl.glVertex3d(1,1,0);
+        			gl.glVertex3d(1.2,2,0);
+        			gl.glVertex3d(1.5,2,0);
+        			gl.glVertex3d(1.3,1,0);
+        			
+        			gl.glVertex3d(1.5,1,0);
+        			gl.glVertex3d(1.2,2,0);
+        			gl.glVertex3d(1.5,2,0);
+        			gl.glVertex3d(1.75,1,0);
+        			
+        			gl.glVertex3d(1.8,1,0);
+        			gl.glVertex3d(1.8,2,0);
+        			gl.glVertex3d(2,2,0);
+        			gl.glVertex3d(2,1,0);
+        			break;}       		
+        		case 4: {        			
+        			gl.glVertex3d(1,1,0);
+        			gl.glVertex3d(1.2,2,0);
+        			gl.glVertex3d(1.5,2,0);
+        			gl.glVertex3d(1.3,1,0);
+        			
+        			gl.glVertex3d(1.5,1,0);
+        			gl.glVertex3d(1.2,2,0);
+        			gl.glVertex3d(1.5,2,0);
+        			gl.glVertex3d(1.75,1,0);
+        			break;}  		
+        		case 2: {
+        			gl.glVertex3d(1,1,0);
+        			gl.glVertex3d(1,2,0);
+        			gl.glVertex3d(1.25,2,0);
+        			gl.glVertex3d(1.25,1,0);
+        			
+        			gl.glVertex3d(1.75,1,0);
+        			gl.glVertex3d(1.75,2,0);
+        			gl.glVertex3d(2,2,0);
+        			gl.glVertex3d(2,1,0);
+        			
+        			gl.glVertex3d(1,1,0);
+        			gl.glVertex3d(2,1,0);
+        			gl.glVertex3d(2,1.25,0);
+        			gl.glVertex3d(1,1.25,0);
+        			
+        			gl.glVertex3d(1,2,0);
+        			gl.glVertex3d(2,2,0);
+        			gl.glVertex3d(2,1.75,0);
+        			gl.glVertex3d(1,1.75,0);
+        			break;}
+        	}        	
+			gl.glEnd();
+	        gl.glTranslated(0,0,-4.3);
+        	
         	switch (k)
         	{
         		case 0: {gl.glRotatef(-90.0f,0f,1f,0f); gl.glTranslatef(.2f, 0f, -3f); break;}
         		case 1: {gl.glTranslatef(-.15f, 0f, .2f);break;}
-        		case 2: {gl.glRotatef(90.0f,0f,1f,0f); gl.glTranslatef(-3.45f, 0f,-.2f); break;}
+        		case 2: {gl.glRotatef(90.0f,0f,1f,0f); gl.glTranslatef(-3.43f, 0f,-.2f); break;}
         		case 3: {gl.glRotatef(180.0f,0f,1f,0f); gl.glTranslatef(-3.2f, 0f, -3.2f); break;}
-        		case 4: {gl.glTranslatef(-.42f, 3.14f, 0.13f); gl.glRotatef(180.0f,1f,0f,0f); gl.glRotatef(-90.0f,1f,0f,0f); break;}
+        		case 4: {gl.glTranslatef(-.42f, 3f, 0.17f); gl.glRotatef(180.0f,1f,0f,0f); gl.glRotatef(-90.0f,1f,0f,0f); break;}
         	}
         }
        
@@ -226,28 +312,7 @@ public class JOGL_cube implements GLEventListener, KeyListener, MouseListener, M
     	  case KeyEvent.VK_RIGHT: {rot2+=10; break;}
     	  case KeyEvent.VK_UP: {rot1+=10; break;}
     	  case KeyEvent.VK_DOWN: {rot1-=10; break;}
-    	  case KeyEvent.VK_ENTER:
-    	  {
-    		  int i,j,k;
-    	      int[] a={0,1,0,0,1,0,0,1,0,2,2,0,0,2,0,2,2,2,3,3,3,0,0,3,3,3,3,4,0,4,4,4,4,0,0,4,0,5,5,0,5,0,5,5,5,6,6,6,6,0,0,6,6,6};
-    	      for(k=0;k<6;k++)
-    	   		for(j=0;j<3;j++)
-    	   		 for(i=0;i<3;i++)
-    	   		  rubicsCube.cube[i][j][k]=a[i+3*j+9*k];    		  
-    		  break;    		 
-    	  }
-    	  case KeyEvent.VK_1:
-    	    { rubicsCube.turnGoriz(0,1);
-  	   			 	break;} 
-    	  case KeyEvent.VK_2:
-  	    { 
-    	    int i,j,k;
-	      		for(k=0;k<1;k++)
-	      			for(j=0;j<1;j++)
-	      				for(i=0;i<1;i++)
-	      					System.out.printf("%f",rubicsCube.cube[i][j][k]*1.0);
-   			 	break;} 
-        }
+    	}
     }
  
     public void keyReleased(KeyEvent e) {
@@ -256,16 +321,16 @@ public class JOGL_cube implements GLEventListener, KeyListener, MouseListener, M
     public void keyTyped(KeyEvent e) {
     }
     
-    public void SetColor(GL2 gl, int i,int j,int k)
+    public static void SetColor(GL2 gl, int i,int j,int k)
     {
     	switch (rubicsCube.cube[i][j][k])
     	{
-    		case 0:{ gl.glColor3f(1f,1f,1f); break;}
-    		case 1:{ gl.glColor3f(1f,1f,0f); break;}
-    		case 2:{ gl.glColor3f(1f,0f,1f); break;}
-    		case 3:{ gl.glColor3f(0f,1f,1f); break;}
-    		case 4:{ gl.glColor3f(0f,0f,1f); break;}
-    		case 5:{ gl.glColor3f(0.1f,0.2f,0.3f); break;}
+    		case 0:{ gl.glColor3f(.9f,.9f,.9f); break;}
+    		case 1:{ gl.glColor3f(.9f,0f,0f); break;}
+    		case 2:{ gl.glColor3f(.9f,.9f,0f); break;}
+    		case 3:{ gl.glColor3f(.9f,.5f,0f); break;}
+    		case 4:{ gl.glColor3f(0f,0f,.9f); break;}
+    		case 5:{ gl.glColor3f(0f,.9f,0f); break;}
     		case 6:{ gl.glColor3f(0.51f,0.52f,0.53f); break;}
     	}
     } 
